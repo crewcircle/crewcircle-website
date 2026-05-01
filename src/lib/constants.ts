@@ -29,22 +29,20 @@ export const APPS: AppDef[] = [
     links: {
       web: 'https://roster.crewcircle.co',
     },
-    description:
-      'Your digital timesheet - drag-drop rostering, GPS clock-in, and award compliance. Built for tradies and cafés that want job-site ready tools.',
+      description: 'Digital timesheet. That\'s it.',
   },
   {
     name: 'Smart GL',
     slug: 'smart-gl',
     oneLiner: 'Shoebox accounting? Sorted.',
     features: ['AI categorisation', 'GST/BAS reports', 'Ledger tracking'],
-    icon: '📎',
+    icon: '📒',
     theme: 'blue',
     ctaType: 'visit',
     links: {
       web: 'https://smartgl.crewcircle.co',
     },
-    description:
-      'Stuff receipts in, AI sorts the books. GST, BAS, and profit insights - no shoebox needed. Built for tradies who\'d rather be on the tools.',
+    description: 'AI does the books. That\'s it.',
   },
   {
     name: 'Card Snap',
@@ -58,8 +56,7 @@ export const APPS: AppDef[] = [
       appStore: '#ios',
       playStore: '#android',
     },
-    description:
-      'Point, shoot, done. Snap a biz card at the job site - straight to contacts. No typing, no fuss. Perfect for tradies on the go.',
+    description: 'Snap cards on site. That\'s it.',
   },
   {
     name: 'XeroAssist',
@@ -72,24 +69,23 @@ export const APPS: AppDef[] = [
     links: {
       chromeStore: '#chrome',
     },
-    description:
-      'Your Xero spanner: validates ABNs, tracks BAS dues, and flips between tenants. Built for bookkeepers who want Xero without the headache.',
+    description: 'Xero spanner. That\'s it.',
   },
 ];
 
 
 export const DEMO_CONFIG = {
-  heading: 'Try Crew Roster Demo',
-  subheading: 'Explore all features with a pre-configured demo for',
-  orgName: 'Syd Plumbing Bros',
-  orgLocation: 'Parramatta, Sydney',
+  heading: 'Try Demo',
+  subheading: 'Pre-configured demo:',
+  orgName: 'Sydney Plumbing',
+  orgLocation: 'Sydney',
   users: [
-    { role: 'Owner', name: 'Mick O\'Brien', color: 'orange' },
-    { role: 'Foreman', name: 'Jake Thompson', color: 'blue' },
-    { role: 'Apprentice', name: 'Sarah Chen', color: 'green' },
-    { role: 'Apprentice', name: 'Emma Wilson', color: 'purple' },
+    { role: 'Owner', name: 'Mick', color: 'orange' },
+    { role: 'Foreman', name: 'Jake', color: 'blue' },
+    { role: 'Apprentice', name: 'Sarah', color: 'green' },
+    { role: 'Apprentice', name: 'Emma', color: 'purple' },
   ],
-  note: 'Part of the CrewCircle suite - high-viz tools for Aussie tradies.',
+  note: 'Tools for tradies. That\'s it.',
 };
 
 
@@ -119,10 +115,10 @@ export const FOOTER_LINKS = {
 
 
 export const AUSSIE_TERMS = {
-  tagline: "Tools that sort your biz - no dramas.",
-  subtitle: "High-viz tools for tradies, cafes, shops & healthcare teams.",
-  cta: "Ready to sort your biz?",
-  exploreBtn: "Grab the Tools",
-  viewAllBtn: "View All Tools",
-  getStartedBtn: "Get Started",
+  tagline: "Sorted.",
+  subtitle: "Tools for tradies.",
+  cta: "Ready?",
+  exploreBtn: "Tools",
+  viewAllBtn: "All Tools",
+  getStartedBtn: "Get it",
 };

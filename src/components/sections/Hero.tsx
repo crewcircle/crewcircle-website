@@ -19,30 +19,30 @@ export default function Hero() {
         </div>
 
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight tracking-tight">
-          Tools that sort your biz:{' '}
-          <span className="text-primary">no dramas.</span>
+          Sorted.
         </h1>
 
         <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-          High-viz tools for tradies, cafés, and shops across Australia.
-          <br />
-          From the ute to the job site: sorted.
+          Tools for tradies.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="#apps"
-              className="px-6 py-3 bg-primary text-primary-foreground rounded-lg text-base font-semibold hover:bg-primary/90 transition-colors"
+              className="px-8 py-3 bg-primary text-primary-foreground rounded-md text-lg font-bold hover:bg-primary/90 transition-colors"
             >
-              Grab the Tools
-              <span className="ml-2">↓</span>
+              Get it
             </Link>
             <Link
               href="/demo"
-              className="px-6 py-3 border-2 border-input text-foreground rounded-lg text-base font-semibold hover:border-primary hover:text-primary transition-colors"
+              className="px-8 py-3 border-2 border-foreground text-foreground rounded-md text-lg font-bold hover:border-primary hover:text-primary transition-colors"
             >
-              Try it on the Job
+              Try it
             </Link>
+        </div>
+
+        <div className="mt-8 text-sm text-muted-foreground">
+          Tradies. That's it.
         </div>
 
         <div className="mt-12 flex flex-wrap justify-center gap-3">
