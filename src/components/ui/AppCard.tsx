@@ -15,7 +15,7 @@ export default function AppCard({ app, index }: AppCardProps) {
       style={{ animationDelay: `${index * 100}ms` }}
     >
       <div className="flex items-center gap-3 mb-4">
-        <div className="w-10 h-10 bg-primary/10 text-primary rounded-lg flex items-center justify-center text-xl">
+        <div className="w-14 h-14 bg-primary/15 text-primary rounded-xl flex items-center justify-center text-3xl font-bold">
           {app.icon}
         </div>
         <div>

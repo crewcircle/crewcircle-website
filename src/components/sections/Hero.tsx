@@ -2,7 +2,15 @@ import Link from 'next/link';
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[70vh] flex items-center justify-center bg-background px-6 py-20">
+    <section className="relative min-h-[70vh] flex items-center justify-center bg-background px-6 py-20 overflow-hidden">
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1504615235135-1e2b3e1?w=1920&q=80"
+          alt="Australian tradie on job site"
+          className="w-full h-full object-cover opacity-10"
+        />
+      </div>
+      <div className="absolute inset-0 bg-background/85" />
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03]" />
 
       <div className="relative text-center max-w-4xl mx-auto">
