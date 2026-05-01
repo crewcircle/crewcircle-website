@@ -122,9 +122,9 @@ export default function DemoPage() {
 
               <div className="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-200">
                   <p className="text-sm text-amber-800">
-                  <span className="font-semibold">💡 Demo Mode:</span> You&apos;re exploring part of the CrewCircle suite.
-                  All actions are simulated — no real data is affected.
-                </p>
+                    <span className="font-semibold">💡 Demo Mode:</span> You&apos;re exploring part of the CrewCircle suite.
+                    All actions are simulated. No real data is affected.
+                  </p>
               </div>
             </div>
           </div>

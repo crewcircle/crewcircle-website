@@ -39,7 +39,7 @@ export default function Footer() {
 
         <div>
           <h4 className="text-white font-semibold mb-4">Ready to sort your business?</h4>
-          <p className="text-sm mb-4">Software that sorts your small biz — no dramas.</p>
+          <p className="text-sm mb-4">Software that sorts your small biz, no dramas.</p>
             <Link
               href="/demo"
               className="inline-block px-5 py-2 bg-orange-500 text-white rounded-md text-sm font-bold hover:bg-orange-600 transition-colors"
@@ -50,7 +50,7 @@ export default function Footer() {
       </div>
 
       <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-gray-800 text-center text-sm">
-        <p>&copy; {new Date().getFullYear()} CrewCircle. All rights reserved. Software that sorts your small biz — no dramas.</p>
+        <p>&copy; {new Date().getFullYear()} CrewCircle. All rights reserved. Software that sorts your small biz, no dramas.</p>
       </div>
     </footer>
   );

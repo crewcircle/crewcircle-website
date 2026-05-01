@@ -49,7 +49,7 @@ export const APPS: AppDef[] = [
   {
     name: 'Card Snap',
     slug: 'card-snap',
-    oneLiner: 'Snap business cards — saved to contacts.',
+    oneLiner: 'Snap business cards, saved to contacts.',
     features: ['ML Kit OCR', 'Contact save', 'Card history'],
     icon: '📸',
     theme: 'green',
@@ -73,7 +73,7 @@ export const APPS: AppDef[] = [
       chromeStore: '#chrome',
     },
     description:
-      'Your Xero sidekick — validates ABNs, tracks BAS dues, and lets you flip between tenants. Built for bookkeepers who want Xero without the headache.',
+      'Your Xero sidekick: validates ABNs, tracks BAS dues, and lets you flip between tenants. Built for bookkeepers who want Xero without the headache.',
   },
 ];
 

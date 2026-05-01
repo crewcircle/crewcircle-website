@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CrewCircle — Software that sorts your small biz",
-  description: "Software that sorts your small biz — no dramas. Tools for Aussie cafés, tradies, shops & healthcare teams.",
+  title: "CrewCircle: Software that sorts your small biz",
+  description: "Software that sorts your small biz, no dramas. Tools for Aussie cafés, tradies, shops & healthcare teams.",
 };
 
 export default function RootLayout({
