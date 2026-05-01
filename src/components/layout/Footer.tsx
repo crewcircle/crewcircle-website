@@ -40,10 +40,10 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-semibold mb-4">Ready to sort your business?</h4>
           <p className="text-sm mb-4">Software that sorts your small biz — no dramas.</p>
-          <Link
-            href="/demo"
-            className="inline-block px-5 py-2 bg-orange-500 text-white rounded-lg text-sm font-bold hover:bg-orange-600 transition-all"
-          >
+            <Link
+              href="/demo"
+              className="inline-block px-5 py-2 bg-orange-500 text-white rounded-md text-sm font-bold hover:bg-orange-600 transition-colors"
+            >
             Try Crew Roster Demo
           </Link>
         </div>
