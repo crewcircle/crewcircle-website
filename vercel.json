@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/roster", "destination": "https://roster.crewcircle.co" },
+    { "source": "/smartgl", "destination": "https://smartgl.crewcircle.co" }
+  ]
+}
