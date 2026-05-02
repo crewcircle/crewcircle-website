@@ -33,21 +33,21 @@ export default function AppCard({ app, index }: AppCardProps) {
       </ul>
 
       <div className="space-y-3">
+        {app.links.web && (
+          <Link
+            href={app.links.web}
+            className="block w-full text-center px-5 py-3 bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90"
+          >
+            Visit
+          </Link>
+        )}
+
         {app.ctaType === 'demo' && (
           <Link
             href="/demo"
             className="block w-full text-center px-5 py-3 bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90"
           >
             Try it
-          </Link>
-        )}
-
-        {app.ctaType === 'visit' && (
-          <Link
-            href={app.links.web || '#'}
-            className="block w-full text-center px-5 py-3 border-2 border-foreground text-foreground text-sm font-bold hover:border-primary hover:text-primary"
-          >
-            Visit
           </Link>
         )}
 
@@ -78,10 +78,6 @@ export default function AppCard({ app, index }: AppCardProps) {
               </Link>
             )}
           </div>
-        )}
-
-        {app.links.web && (
-          <p className="text-xs text-muted-foreground text-center truncate">{app.links.web}</p>
         )}
       </div>
     </div>

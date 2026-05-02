@@ -25,7 +25,7 @@ export const APPS: AppDef[] = [
     features: ['Roster scheduling', 'GPS clock-in/out', 'Award compliance'],
     icon: '⏱',
     theme: 'orange',
-    ctaType: 'demo',
+    ctaType: 'visit',
     links: {
       web: 'https://roster.crewcircle.co',
     },
@@ -53,6 +53,7 @@ export const APPS: AppDef[] = [
     theme: 'green',
     ctaType: 'download',
     links: {
+      web: '/card-snap',
       appStore: '#ios',
       playStore: '#android',
     },
@@ -86,10 +87,10 @@ export const FOOTER_LINKS = {
     { label: 'GitHub', href: 'https://github.com/crewcircle' },
   ],
   apps: [
-    { label: 'Crew Roster', href: '/roster' },
-    { label: 'Smart GL', href: '/smartgl' },
+    { label: 'Crew Roster', href: 'https://roster.crewcircle.co' },
+    { label: 'Smart GL', href: 'https://smartgl.crewcircle.co' },
     { label: 'Card Snap', href: '/card-snap' },
-    { label: 'XeroAssist', href: '/xero-assist' },
+    { label: 'XeroAssist', href: 'https://xero-assist.crewcircle.co' },
   ],
   legal: [
     { label: 'Privacy Policy', href: '/privacy' },
