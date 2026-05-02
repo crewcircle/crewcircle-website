@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Hero() {
   return (
@@ -14,8 +15,14 @@ export default function Hero() {
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03]" />
 
       <div className="relative text-center max-w-4xl mx-auto">
-        <div className="mb-6">
-          <span className="text-5xl md:text-6xl font-black text-foreground">Crew<span className="text-primary">Circle</span></span>
+        <div className="mb-6 flex justify-center">
+          <Image
+            src="/crewcircle-logo.svg"
+            alt="CrewCircle Logo"
+            width={200}
+            height={200}
+            className="w-auto h-12 md:h-16"
+          />
         </div>
 
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight tracking-tight">
@@ -23,7 +30,7 @@ export default function Hero() {
         </h1>
 
         <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-          Tools for tradies.
+          Tools for your crew.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -57,7 +64,7 @@ export default function Hero() {
         </div>
 
         <div className="mt-6 text-sm text-muted-foreground">
-          Built for Aussies 🇦🇺
+          Built for your crew 🇦🇺
         </div>
       </div>
     </section>

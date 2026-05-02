@@ -34,7 +34,7 @@ export const APPS: AppDef[] = [
   {
     name: 'Smart GL',
     slug: 'smart-gl',
-    oneLiner: 'Shoebox accounting? Sorted.',
+    oneLiner: 'AI does the books for your crew.',
     features: ['AI categorisation', 'GST/BAS reports', 'Ledger tracking'],
     icon: '📒',
     theme: 'blue',
@@ -42,12 +42,12 @@ export const APPS: AppDef[] = [
     links: {
       web: 'https://smartgl.crewcircle.co',
     },
-    description: 'AI does the books. That\'s it.',
+    description: 'AI does the books for your crew. That\'s it.',
   },
   {
     name: 'Card Snap',
     slug: 'card-snap',
-    oneLiner: 'Snap biz cards on site - sorted.',
+    oneLiner: 'Snap cards for your crew.',
     features: ['ML Kit OCR', 'Contact save', 'Card history'],
     icon: '📷',
     theme: 'green',
@@ -56,12 +56,12 @@ export const APPS: AppDef[] = [
       appStore: '#ios',
       playStore: '#android',
     },
-    description: 'Snap cards on site. That\'s it.',
+    description: 'Snap cards for your crew. That\'s it.',
   },
   {
     name: 'XeroAssist',
     slug: 'xero-assist',
-    oneLiner: 'Your Xero spanner - sorted.',
+    oneLiner: 'Xero spanner for your crew.',
     features: ['ABN validation', 'BAS tracker', 'ATO rates'],
     icon: '🔧',
     theme: 'purple',
@@ -69,7 +69,7 @@ export const APPS: AppDef[] = [
     links: {
       chromeStore: '#chrome',
     },
-    description: 'Xero spanner. That\'s it.',
+    description: 'Xero spanner for your crew. That\'s it.',
   },
 ];
 
