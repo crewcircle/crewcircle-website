@@ -52,8 +52,8 @@ export const APPS: AppDef[] = [
     icon: '📷',
     theme: 'green',
     ctaType: 'download',
-    links: {
-      web: '/card-snap',
+        links: {
+      web: '/cardsnap',
       appStore: '#ios',
       playStore: '#android',
     },
@@ -89,11 +89,11 @@ export const FOOTER_LINKS = {
   apps: [
     { label: 'Crew Roster', href: 'https://roster.crewcircle.co' },
     { label: 'Smart GL', href: 'https://smartgl.crewcircle.co' },
-    { label: 'Card Snap', href: '/card-snap' },
+    { label: 'Card Snap', href: '/cardsnap' },
     { label: 'XeroAssist', href: 'https://xero-assist.crewcircle.co' },
   ],
-  legal: [
-    { label: 'Privacy Policy', href: '/privacy' },
+    legal: [
+    { label: 'Privacy Policy', href: '/cardsnap/privacy-policy' },
     { label: 'Terms of Service', href: '/terms' },
     { label: 'Documentation', href: '/docs' },
   ],
