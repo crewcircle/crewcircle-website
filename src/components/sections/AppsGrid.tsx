@@ -1,8 +1,4 @@
-'use client';
-
-import { useState } from 'react';
 import { APPS } from '@/lib/config/apps';
-import { PRICING_SECTIONS, FREE_TOOLS_BLURB } from '@/lib/config/pricing';
 import AppCard from '@/components/ui/AppCard';
 import AppDemoTabs from '@/components/sections/AppDemoTabs';
 import { Button } from '@/components/ui/button';

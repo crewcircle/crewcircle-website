@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# packages/infra/bin/killproject
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+INFRA_DIR="$(dirname "$SCRIPT_DIR")"
+TEMPLATE_DIR="$INFRA_DIR/template"
+REPO_ROOT="$(dirname "$(dirname "$INFRA_DIR")")"
+[ -f "$REPO_ROOT/.env.local" ] && set -a && source "$REPO_ROOT/.env.local" && set +a
+
+DOPPLER_MASTER="${CC_DOPPLER_MASTER_PROJECT:-crewcircle-master}"
+GITHUB_ORG="${CC_GITHUB_USERNAME:-}"
+
+[[ $# -lt 1 ]] && { echo "Usage: bin/killproject <project-id>"; exit 1; }
+PROJECT_ID="$1"
+
+python3 -c "
+import json, sys
+data = json.load(open('$INFRA_DIR/registry.json'))
+projects = {p['id']: p for p in data.get('projects', [])}
+if '$PROJECT_ID' not in projects:
+    print('ERROR: not found in registry'); sys.exit(1)
+if projects['$PROJECT_ID']['status'] == 'killed':
+    print('ERROR: already killed'); sys.exit(1)
+p = projects['$PROJECT_ID']
+print(f\"Project: {p['name']} | Created: {p['created_at']}\")
+"
+
+echo ""
+read -rp "Type project ID to confirm destruction: " confirm
+[[ "$confirm" == "$PROJECT_ID" ]] || { echo "Confirmation mismatch. Aborted."; exit 1; }
+
+cd "$TEMPLATE_DIR"
+pulumi stack select "$PROJECT_ID" 2>/dev/null || true
+doppler run --project "$DOPPLER_MASTER" --config prod -- pulumi destroy --yes 2>/dev/null || \
+    echo "Warning: pulumi destroy had errors"
+
+[[ -n "$GITHUB_ORG" ]] && gh repo archive "$GITHUB_ORG/$PROJECT_ID" --yes 2>/dev/null || true
+
+python3 - <<EOF
+import sys
+sys.path.insert(0, '$INFRA_DIR/shared')
+import registry
+registry.kill('$PROJECT_ID')
+print("registry.json updated")
+EOF
+
+pulumi stack rm "$PROJECT_ID" --yes 2>/dev/null || true
+echo "✓ Project '$PROJECT_ID' killed."

@@ -20,7 +20,7 @@ export const IMPACT_STORIES = [
     ],
   },
   {
-    title: 'Tradie CrewRoster',
+    title: 'Tradie Crew Roster',
     description:
       'Replaced paper timesheets with GPS-tracked digital clock-ins for a 30-person construction crew. No more lost hours, no more payroll guesswork.',
     metrics: [
@@ -43,19 +43,20 @@ export const IMPACT_STORIES = [
 
 export const FOOTER_LINKS = {
   services: [
-    { label: 'Pricing', href: '/pricing' },
-    { label: 'Apps', href: '/#apps' },
-    { label: 'About', href: '/#about' },
-    { label: 'Contact', href: '/#contact' },
+    { label: 'AI Strategy', href: '/#services' },
+    { label: 'Custom Tools', href: '/#services' },
+    { label: 'Data & Analytics', href: '/#services' },
+    { label: 'Support', href: '/#services' },
   ],
   apps: [
-    { label: 'TaxFlowAI', href: 'https://taxflow.crewcircle.com.au' },
-    { label: 'LocalMate', href: 'https://localmate.crewcircle.com.au' },
-    { label: 'CrewRoster', href: 'https://roster.crewcircle.com.au' },
+    { label: 'Crew Roster', href: 'https://roster.crewcircle.com' },
+    { label: 'Smart GL', href: '#' }, // placeholder — no production URL yet
+    { label: 'Card Snap', href: '/cardsnap' },
+    { label: 'XeroAssist', href: 'https://xero-assist.crewcircle.com' },
   ],
   legal: [
-    { label: 'Privacy Policy', href: '/privacy' },
-    { label: 'Terms of Service', href: '/terms' },
-    { label: 'Documentation', href: '/documentation' },
+    { label: 'Privacy Policy', href: '#' }, // placeholder — no legal pages yet
+    { label: 'Terms of Service', href: '#' }, // placeholder — no legal pages yet
+    { label: 'Documentation', href: '#' }, // placeholder — no legal pages yet
   ],
 };

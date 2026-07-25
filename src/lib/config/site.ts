@@ -1,9 +1,8 @@
 export const NAV_ITEMS = [
-  { label: 'Our Apps', href: '/#apps', hasDropdown: false },
-  { label: 'Services', href: '/#services', hasDropdown: false },
-  { label: 'Pricing', href: '/pricing', hasDropdown: false },
-  { label: 'Blog', href: '/blog', hasDropdown: false },
   { label: 'About', href: '/#about', hasDropdown: false },
+  { label: 'Services', href: '/#services', hasDropdown: false },
+  { label: 'Our Apps', href: '/#apps', hasDropdown: false },
+  // { label: 'Blog', href: '/blog', hasDropdown: false }, // commented out — no blog page yet
   { label: 'Contact', href: '/#contact', hasDropdown: false },
 ];
 
@@ -14,6 +13,13 @@ export const HERO_CONTENT = {
   cta: "Let's talk",
   secondaryCta: 'See what I build',
 };
+
+export const TRUST_METRICS = [
+  { value: '15+', label: 'Years building software' },
+  { value: '4', label: 'Enterprise clients' },
+  { value: 'IIT-BHU', label: 'Engineering alumnus' },
+  { value: 'Sydney', label: 'Based & building' },
+];
 
 export const AUSSIE_TERMS = {
   tagline: 'Sorted.',

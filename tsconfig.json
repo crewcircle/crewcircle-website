@@ -30,5 +30,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "backstage-portal", "crewcircle-website", "packages/observability", "packages/database", "packages/auth"]
+  "exclude": ["node_modules", "backstage-portal", "crewcircle-website"]
 }

@@ -1,16 +1,11 @@
 import pulumi
-from pulumi import ResourceOptions
-from pulumi_github import Provider as GitHubProvider, ActionsOrganizationSecret, ActionsOrganizationVariable
+from pulumi_github import ActionsOrganizationSecret, ActionsOrganizationVariable
 from pulumiverse_sentry import SentryTeam
 
 config = pulumi.Config()
 github_org = config.require("github_org")
 
-master_env_var = "crewcircle/default/master"
-
-# Explicitly target the configured GitHub org, not the token owner's org.
-github_provider = GitHubProvider("github", owner=github_org)
-github_opts = ResourceOptions(provider=github_provider)
+master_env_var = "crewcircle/master"
 
 # ── GitHub organization secrets ─────────────────────────────────────
 master_doppler_token = ActionsOrganizationSecret(
@@ -18,7 +13,6 @@ master_doppler_token = ActionsOrganizationSecret(
     secret_name="DOPPLER_TOKEN",
     visibility="all",
     value=config.require_secret("doppler_token"),
-    opts=github_opts,
 )
 
 master_supabase_token = ActionsOrganizationSecret(
@@ -26,7 +20,6 @@ master_supabase_token = ActionsOrganizationSecret(
     secret_name="SUPABASE_ACCESS_TOKEN",
     visibility="all",
     value=config.require_secret("supabase_access_token"),
-    opts=github_opts,
 )
 
 master_sentry_token = ActionsOrganizationSecret(
@@ -34,7 +27,6 @@ master_sentry_token = ActionsOrganizationSecret(
     secret_name="SENTRY_AUTH_TOKEN",
     visibility="all",
     value=config.require_secret("sentry_auth_token"),
-    opts=github_opts,
 )
 
 master_cloudflare_token = ActionsOrganizationSecret(
@@ -42,7 +34,6 @@ master_cloudflare_token = ActionsOrganizationSecret(
     secret_name="CLOUDFLARE_API_TOKEN",
     visibility="all",
     value=config.require_secret("cloudflare_api_token"),
-    opts=github_opts,
 )
 
 master_esc_var = ActionsOrganizationVariable(
@@ -50,7 +41,6 @@ master_esc_var = ActionsOrganizationVariable(
     variable_name="ESC_ENV",
     visibility="all",
     value=master_env_var,
-    opts=github_opts,
 )
 
 # NOTE: Doppler project "crewcircle-master" with env "prod" must exist

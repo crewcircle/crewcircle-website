@@ -1,0 +1,38 @@
+# Secrets — never commit
+.env.local
+.env.master
+.env.*.local
+*.env
+.setup_progress.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.pytest_cache/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+.vercel/
+
+# Pulumi
+.pulumi/
+*.pulumi.yaml.bak
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Playwright
+playwright-report/
+test-results/

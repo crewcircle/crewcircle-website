@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+# packages/infra/bin/newproject
+# Reads DOPPLER_MASTER_PROJECT from env — no hardcoded project names.
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+INFRA_DIR="$(dirname "$SCRIPT_DIR")"
+TEMPLATE_DIR="$INFRA_DIR/template"
+REGISTRY="$INFRA_DIR/registry.json"
+
+# Load .env.local from monorepo root if present
+REPO_ROOT="$(dirname "$(dirname "$INFRA_DIR")")"
+[ -f "$REPO_ROOT/.env.local" ] && set -a && source "$REPO_ROOT/.env.local" && set +a
+
+DOPPLER_MASTER="${CC_DOPPLER_MASTER_PROJECT:-crewcircle-master}"
+
+if [[ $# -lt 3 ]]; then
+    echo "Usage: bin/newproject <project-id> <name> <description> [price-cents]"
+    echo "Example: bin/newproject local-biz-au 'Local Biz' 'AU SMB automation' 19900"
+    exit 1
+fi
+
+PROJECT_ID="$1"
+PROJECT_NAME="$2"
+DESCRIPTION="$3"
+PRICE_CENTS="${4:-19900}"
+
+if ! echo "$PROJECT_ID" | grep -qE '^[a-z][a-z0-9-]+$'; then
+    echo "ERROR: project-id must be lowercase letters, numbers, hyphens only"
+    exit 1
+fi
+
+if [[ -f "$REGISTRY" ]]; then
+    python3 -c "
+import json, sys
+data = json.load(open('$REGISTRY'))
+ids = [p['id'] for p in data.get('projects', [])]
+sys.exit(1 if '$PROJECT_ID' in ids else 0)
+    " || {
+        echo "ERROR: Project '$PROJECT_ID' already exists in registry.json"
+        exit 1
+    }
+fi
+
+echo ""
+echo "  Project : $PROJECT_NAME ($PROJECT_ID)"
+echo "  Price   : \$$(echo "scale=2; $PRICE_CENTS/100" | bc) AUD/month"
+echo "  Doppler : $DOPPLER_MASTER"
+echo ""
+read -rp "Proceed? [y/N] " confirm
+[[ "$confirm" =~ ^[yY]$ ]] || { echo "Aborted."; exit 0; }
+
+cd "$TEMPLATE_DIR"
+pulumi stack init "$PROJECT_ID" 2>/dev/null || pulumi stack select "$PROJECT_ID"
+pulumi config set project_id   "$PROJECT_ID"
+pulumi config set project_name "$PROJECT_NAME"
+pulumi config set description  "$DESCRIPTION"
+pulumi config set price_cents  "$PRICE_CENTS"
+
+echo "→ Provisioning (Supabase takes ~60s)..."
+doppler run --project "$DOPPLER_MASTER" --config prod -- pulumi up --yes --suppress-outputs
+
+echo ""
+echo "→ Outputs:"
+pulumi stack output
+
+echo ""
+echo "✓ Project '$PROJECT_ID' ready."

@@ -1,32 +1,6 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { FOUNDER } from '@/lib/config/founder';
-import { SOCIAL_ICONS } from '@/lib/config/social';
-import { MapPin, ShieldCheck, TrendingUp } from 'lucide-react';
-
-const FOUNDER_IMPACT = [
-  {
-    title: 'Healthcare Platform',
-    description: 'AI-powered clinical decision support that transformed healthcare delivery operations.',
-    metrics: [
-      { value: '83%', label: 'Subscription revenue growth' },
-      { value: '3×', label: 'Client capacity increase' },
-      { value: '76%', label: 'Infrastructure cost reduction' },
-    ],
-    icon: TrendingUp,
-  },
-  {
-    title: 'Financial Services',
-    description: 'Enterprise-grade analytics platform serving global investment firms with zero-downtime operations.',
-    metrics: [
-      { value: '400+', label: 'Funds managed' },
-      { value: '7', label: 'New ESG clients onboarded' },
-      { value: '0', label: 'Downtime incidents' },
-    ],
-    icon: ShieldCheck,
-  },
-];
+import { CREWCIRCLE_SOCIAL } from '@/lib/config/social';
+import { Award, Code, ExternalLink, GraduationCap, MapPin, User } from 'lucide-react';
 
 export default function AboutSection() {
   return (
