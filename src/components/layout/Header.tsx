@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { NAV_ITEMS } from '@/lib/config/site';
 import { cn } from '@/lib/utils';
+import { Logo } from '@/components/Logo';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,9 +26,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
       <div className="max-w-7xl mx-auto px-6 py-3.5 flex items-center justify-between relative z-10">
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-amber-600 shadow-md w-8 h-8">
-            <span className="text-white font-bold text-sm">C</span>
-          </div>
+          <Logo className="h-8 w-8" />
           <span className="text-xl font-bold tracking-tight text-foreground">
             Crew<span className="text-accent">Circle</span>
           </span>
@@ -43,12 +42,6 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
-          <Link
-            href="#contact"
-            className="ml-2 px-5 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-semibold hover:bg-accent hover:text-accent-foreground transition-all duration-200"
-          >
-            Get in touch
-          </Link>
         </nav>
 
         <button
@@ -96,15 +89,6 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
-          <div className="mt-2 px-3">
-            <Link
-              href="#contact"
-              onClick={closeMenu}
-              className="block w-full px-5 py-2.5 bg-primary text-primary-foreground rounded-lg text-center text-sm font-semibold hover:bg-primary/90 transition-all duration-200"
-            >
-              Get in touch
-            </Link>
-          </div>
         </nav>
       </div>
     </header>

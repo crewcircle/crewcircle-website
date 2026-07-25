@@ -1,0 +1,72 @@
+# Social media automation config for CrewCircle
+# Copy this file to secret/config.yaml and fill in your real credentials.
+# Never commit secret/config.yaml.
+
+# Secrets source: "env" reads values from environment variables / .env file.
+# Set to "doppler" to pull secrets from a Doppler project instead.
+# If using Doppler, install the CLI and authenticate: https://docs.doppler.com/docs/install-cli
+secrets_source: "env"
+# Shared Doppler project for all CrewCircle secrets (apps + social automation).
+# doppler_project: "crewcircle-master"
+# doppler_config: "prod"
+
+substack:
+  enabled: true
+  # Substack publication slug, e.g. "prabhatranjan" for prabhatranjan.substack.com
+  publication: "prabhatranjan"
+  # Substack email-to-post address. Get it from your publication's Settings > Posts.
+  post_email: "post@yournewsletter.substack.com"
+  # SMTP credentials used to send the email. Gmail, Fastmail, or your own SMTP works.
+  smtp_host: "smtp.gmail.com"
+  smtp_port: 587
+  smtp_user: "you@example.com"
+  # Put the app password / SMTP password in the environment or keychain.
+  # This file supports ${ENV_VAR} substitution for sensitive values.
+  smtp_pass: "${SUBSTACK_SMTP_PASS}"
+  # Optional: add a default footer to every Substack post.
+  footer: |
+    ---
+    Built in-house at CrewCircle (https://crewcircle.com.au). Reply if you want to talk AI for small business.
+
+linkedin:
+  enabled: true
+  # LinkedIn OAuth 2.0 credentials from https://www.linkedin.com/developers/apps
+  client_id: "${LINKEDIN_CLIENT_ID}"
+  client_secret: "${LINKEDIN_CLIENT_SECRET}"
+  # Personal access token (3-month expiry). Use scripts/social/auth_linkedin.py to refresh.
+  access_token: "${LINKEDIN_ACCESS_TOKEN}"
+  # Your LinkedIn person URN, e.g. urn:li:person:abc123. Find via /v2/me API call.
+  author_urn: "urn:li:person:YOUR_PERSON_URN"
+  # Your LinkedIn company URN, e.g. urn:li:organization:12345, for company posts.
+  company_urn: "urn:li:organization:YOUR_COMPANY_URN"
+
+twitter:
+  enabled: true
+  # X API v2 credentials from https://developer.twitter.com/en/portal/dashboard
+  # Free write access is restricted; Basic/Paid plan required for most posting.
+  bearer_token: "${X_BEARER_TOKEN}"
+  api_key: "${X_API_KEY}"
+  api_secret: "${X_API_SECRET}"
+  access_token: "${X_ACCESS_TOKEN}"
+  access_token_secret: "${X_ACCESS_TOKEN_SECRET}"
+
+youtube:
+  enabled: false
+  # YouTube Data API v3 OAuth credentials.
+  # This is the most complex platform; enable only after OAuth setup.
+  client_id: "${YOUTUBE_CLIENT_ID}"
+  client_secret: "${YOUTUBE_CLIENT_SECRET}"
+  refresh_token: "${YOUTUBE_REFRESH_TOKEN}"
+
+# Default posting schedule (AEST/AEDT). Used by launchd/cron triggers.
+schedule:
+  timezone: "Australia/Sydney"
+  # These windows are checked by the scheduler. The orchestrator only posts items
+  # whose scheduled_at is in the past and that have not been published yet.
+  windows:
+    - "07:30"
+    - "12:00"
+    - "17:30"
+
+# Dry-run mode: when true, nothing is actually posted. Logs what would happen.
+dry_run: true

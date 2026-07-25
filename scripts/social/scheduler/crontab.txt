@@ -1,0 +1,4 @@
+# Run the CrewCircle social publisher every hour.
+# Add this to your crontab with: crontab scripts/social/scheduler/crontab.txt
+
+0 * * * * cd /Users/prabhatranjan/Business/crewcircle/crewcircle-website && scripts/social/.venv/bin/python scripts/social/publish.py --config scripts/social/secret/config.yaml --calendar scripts/social/calendar.yaml >> scripts/social/secret/publish.log 2>&1

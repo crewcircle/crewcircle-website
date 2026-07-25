@@ -11,7 +11,16 @@ REPO_ROOT="$(dirname "$(dirname "$INFRA_DIR")")"
 [ -f "$REPO_ROOT/.env.local" ] && set -a && source "$REPO_ROOT/.env.local" && set +a
 GITHUB_ORG="${CC_GITHUB_USERNAME:-}"
 
-[[ $# -lt 1 ]] && { echo "Usage: bin/killproject <project-id>"; exit 1; }
+# Parse flags before positional args
+NON_INTERACTIVE=false
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --non-interactive|--yes) NON_INTERACTIVE=true; shift ;;
+    *) break ;;
+  esac
+done
+
+[[ $# -lt 1 ]] && { echo "Usage: bin/killproject [--non-interactive] <project-id>"; exit 1; }
 PROJECT_ID="$1"
 
 python3 -c "
@@ -27,8 +36,10 @@ print(f'Project: {p[\"name\"]} | Created: {p[\"created_at\"]}')
 "
 
 echo ""
-read -rp "Type project ID to confirm destruction: " confirm
-[[ "$confirm" == "$PROJECT_ID" ]] || { echo "Confirmation mismatch. Aborted."; exit 1; }
+if [[ "$NON_INTERACTIVE" != true ]]; then
+  read -rp "Type project ID to confirm destruction: " confirm
+  [[ "$confirm" == "$PROJECT_ID" ]] || { echo "Confirmation mismatch. Aborted."; exit 1; }
+fi
 
 cd "$TEMPLATE_DIR"
 

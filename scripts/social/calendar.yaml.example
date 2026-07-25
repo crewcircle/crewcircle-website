@@ -1,0 +1,47 @@
+# Example content calendar for CrewCircle social media.
+# Posts run through scripts/social/publish.py when their scheduled_at is in the past.
+# Posts are marked published after a successful run so they are not duplicated.
+
+- id: launch-2026-07-21-linkedin
+  scheduled_at: "2026-07-21T07:30:00+10:00"
+  platforms: [linkedin]
+  title: ""
+  body: |
+    We just shipped a new version of the CrewCircle website with three live apps: TaxFlowAI, LocalMate, and CrewRoster.
+
+    Each app has a short demo you can watch on the homepage. No signup, no sales call — just real tools for Aussie small business.
+
+    https://crewcircle.com.au
+
+- id: launch-2026-07-21-x
+  scheduled_at: "2026-07-21T07:35:00+10:00"
+  platforms: [twitter]
+  body: |
+    Three live apps. Three demos. One homepage.
+
+    TaxFlowAI, LocalMate, and CrewRoster are ready to try.
+
+    https://crewcircle.com.au
+
+- id: substack-2026-07-25
+  scheduled_at: "2026-07-25T08:00:00+10:00"
+  platforms: [substack]
+  title: "AI for Aussie Small Business: What Actually Works"
+  body: |
+    Most AI tools are built for enterprise budgets. I spent the last year building six practical tools for Australian small businesses — tradies, cafés, clinics, and shops.
+
+    Three are live today: TaxFlowAI for accounting firms, LocalMate for local business automation, and CrewRoster for shift crews.
+
+    Read more and watch the demos: https://crewcircle.com.au
+
+- id: linkedin-taxflowai-2026-07-28
+  scheduled_at: "2026-07-28T12:00:00+10:00"
+  platforms: [linkedin]
+  body: |
+    Accountants: how long do you spend chasing ATO references?
+
+    TaxFlowAI gives you cited answers from ATO rulings, determinations, and legislation. Upload an ATO letter and draft a response in minutes.
+
+    Built for Australian tax professionals.
+
+    https://taxflow.crewcircle.com.au

@@ -56,17 +56,37 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-12">
           <div className="md:col-span-2">
-            <Image
-              src="/crewcircle-logo.svg"
-              alt="CrewCircle"
-              width={160}
-              height={40}
-              className="w-auto h-8 brightness-0 invert mb-4"
-            />
+            <Logo className="h-8 w-8 mb-4" />
             <p className="text-sm text-primary-foreground/60 max-w-xs leading-relaxed">
               Practical AI that sorts your small biz, no dramas. Built for Aussie
               businesses by Aussie builders.
             </p>
+            <div className="mt-6 space-y-2.5 text-sm">
+              <a
+                href="mailto:prabhat@crewcircle.com.au"
+                className="flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors duration-200"
+              >
+                <Mail className="w-4 h-4" />
+                prabhat@crewcircle.com.au
+              </a>
+              <details className="group">
+                <summary className="cursor-pointer list-none flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors duration-200">
+                  <Phone className="w-4 h-4" />
+                  <span>Mobile</span>
+                  <span className="text-xs underline">(click to show)</span>
+                </summary>
+                <a
+                  href="tel:+61410603242"
+                  className="flex items-center gap-2 mt-2 text-primary-foreground hover:text-primary-foreground transition-colors duration-200"
+                >
+                  <Phone className="w-4 h-4" />
+                  0410 603 242
+                </a>
+              </details>
+              <p className="text-primary-foreground/60 pt-1">
+                ABN 86 699 000 5064
+              </p>
+            </div>
           </div>
 
           <div>
@@ -128,16 +148,16 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4">
               {SOCIAL_ICONS.map(({ href, icon, label }) => (
-                <a
+                <Button
                   key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary-foreground/40 hover:text-primary-foreground hover:bg-primary-foreground/10 p-2 rounded-lg transition-all duration-200"
+                  variant="ghost"
+                  size="icon"
+                  className="text-primary-foreground/40 hover:text-primary-foreground hover:bg-primary-foreground/10"
                   aria-label={label}
+                  render={<Link href={href} target="_blank" rel="noopener noreferrer" />}
                 >
                   {icon('w-5 h-5')}
-                </a>
+                </Button>
               ))}
             </div>
             <p className="text-sm text-primary-foreground/40">

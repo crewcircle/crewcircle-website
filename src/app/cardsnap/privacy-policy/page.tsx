@@ -11,7 +11,7 @@ export default function CardSnapPrivacyPage() {
     <main className="min-h-screen bg-background">
       <header className="border-b border-border">
         <div className="container mx-auto px-4 py-4 flex items-center gap-4">
-          <Link href="/card-snap" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+          <Link href="/cardsnap" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
             <ArrowLeft className="h-4 w-4" />
             <span className="text-sm font-medium">Back to CardSnap</span>
           </Link>

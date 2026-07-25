@@ -4,7 +4,7 @@ import { Award, Code, ExternalLink, GraduationCap, MapPin, User } from 'lucide-r
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-20 md:py-28 px-6 bg-background">
+    <section id="about" className="py-24 md:py-32 px-6 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="max-w-2xl mx-auto text-center mb-12">
           <span className="text-xs font-semibold tracking-widest uppercase text-accent mb-3 block">
@@ -14,23 +14,23 @@ export default function AboutSection() {
             Who&apos;s behind this
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Just a builder who&apos;s been doing this for 15+ years. No sales
-            team, no suits, no nonsense.
+            Built by an engineer who spent 15 years inside big tech, now
+            obsessed with sorting the boring stuff for small business.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-          <div className="lg:col-span-3 space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="space-y-8">
             <div className="flex items-start gap-5">
-              <div className="relative w-20 h-20 rounded-full overflow-hidden bg-gradient-to-br from-accent/10 to-primary/10 border-2 border-accent/20 flex-shrink-0 flex items-center justify-center">
-                <svg
-                  viewBox="0 0 200 200"
-                  className="w-16 h-16 text-foreground/30"
-                  fill="currentColor"
-                >
-                  <circle cx="100" cy="70" r="35" />
-                  <ellipse cx="100" cy="170" rx="65" ry="50" />
-                </svg>
+              <div className="relative w-20 h-20 rounded-full overflow-hidden bg-gradient-to-br from-accent/10 to-primary/10 border-2 border-accent/20 flex-shrink-0">
+                <Image
+                  src="/founder.jpg"
+                  alt={FOUNDER.name}
+                  fill
+                  className="object-cover"
+                  sizes="80px"
+                  priority
+                />
                 <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-green-500 border-2 border-background flex items-center justify-center">
                   <div className="w-2 h-2 rounded-full bg-white" />
                 </div>
@@ -47,147 +47,62 @@ export default function AboutSection() {
                     <MapPin className="w-3.5 h-3.5" />
                     {FOUNDER.location}
                   </span>
-                  <span className="flex items-center gap-1.5">
-                    <GraduationCap className="w-3.5 h-3.5" />
-                    {FOUNDER.education}
-                  </span>
                 </div>
               </div>
             </div>
 
-            <div className="text-muted-foreground leading-relaxed space-y-3">
-              <p>{FOUNDER.shortBio}</p>
-              <p className="text-sm text-muted-foreground/80">
-                {FOUNDER.currentFocus}
-              </p>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4 flex items-center gap-2">
-                <Code className="w-4 h-4 text-accent" />
-                Where I&apos;ve built stuff
-              </h4>
-              <div className="space-y-2">
-                {FOUNDER.experience.map((exp) => (
-                  <div
-                    key={exp.company}
-                    className="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-muted/50 border border-border/50"
-                  >
-                    <div className="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">
-                      {exp.company.slice(0, 2).toUpperCase()}
-                    </div>
-                    <div>
-                      <span className="font-medium text-foreground text-sm">
-                        {exp.role}
-                      </span>
-                      <span className="text-muted-foreground text-sm ml-2">
-                        @ {exp.company}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Certifications */}
-            <div>
-              <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4 flex items-center gap-2">
-                <Award className="w-4 h-4 text-accent" />
-                Certifications
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {FOUNDER.certifications.map((cert) => (
-                  <span
-                    key={`${cert.issuer}-${cert.credential}`}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent/5 border border-accent/20 text-xs font-medium text-accent"
-                  >
-                    {cert.issuer} &middot; {cert.credential}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Anthropic Partnership */}
-            <div className="rounded-xl border border-accent/30 bg-accent/5 p-5 flex items-start gap-4">
-              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                <Award className="w-5 h-5 text-accent" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-foreground">
-                  {FOUNDER.anthropicPartnership.badge}
-                </p>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  {FOUNDER.anthropicPartnership.note}
-                </p>
-              </div>
-            </div>
+            <p className="text-muted-foreground leading-relaxed">
+              {FOUNDER.shortBio}
+            </p>
           </div>
 
-          <div className="lg:col-span-2 space-y-8">
-            {/* Specialties */}
-            <div className="rounded-xl border border-border bg-muted/30 p-6">
-              <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4 flex items-center gap-2">
-                <User className="w-4 h-4 text-accent" />
-                Specialties
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {FOUNDER.specialties.map((s) => (
-                  <span
-                    key={s}
-                    className="px-3 py-1.5 rounded-lg bg-background border border-border text-xs font-medium text-foreground/80"
-                  >
-                    {s}
-                  </span>
-                ))}
+          <div className="space-y-8">
+            <div className="space-y-6 pt-6 border-t border-border">
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-accent" />
+                <h4 className="text-lg font-semibold text-foreground">Engineering depth that scales</h4>
+              </div>
+              <p className="text-muted-foreground text-sm">
+                The same rigour applied to CrewCircle apps has delivered results for larger projects too.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {FOUNDER_IMPACT.map((story) => {
+                  const Icon = story.icon;
+                  return (
+                    <div
+                      key={story.title}
+                      className="rounded-xl border border-border bg-card p-5 hover:shadow-md hover:border-accent/20 transition-all duration-200"
+                    >
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center">
+                          <Icon className="w-4.5 h-4.5 text-accent" />
+                        </div>
+                        <h5 className="text-base font-bold text-foreground">
+                          {story.title}
+                        </h5>
+                      </div>
+
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                        {story.description}
+                      </p>
+
+                      <div className="grid grid-cols-3 gap-3">
+                        {story.metrics.map((metric) => (
+                          <div key={metric.label}>
+                            <div className="text-lg font-bold text-accent">
+                              {metric.value}
+                            </div>
+                            <div className="text-[11px] text-muted-foreground mt-0.5 leading-tight">
+                              {metric.label}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
-
-<div className="rounded-xl border border-border bg-accent/5 p-6">
-               <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-3">
-                 Follow crew circle
-               </h4>
-               <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                 Get the latest updates, insights, and behind-the-scenes content from our crew circle journey.
-               </p>
-               <div className="space-y-2.5">
-                 <a
-                   href={CREWCIRCLE_SOCIAL.linkedin}
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   className="flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-background border border-border hover:border-accent/40 transition-colors text-sm font-medium text-foreground group"
-                 >
-                   <span>LinkedIn</span>
-                   <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-accent transition-colors" />
-                 </a>
-                 <a
-                   href={CREWCIRCLE_SOCIAL.twitter}
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   className="flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-background border border-border hover:border-accent/40 transition-colors text-sm font-medium text-foreground group"
-                 >
-                   <span>X (Twitter)</span>
-                   <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-accent transition-colors" />
-                 </a>
-                 <a
-                   href={CREWCIRCLE_SOCIAL.github}
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   className="flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-background border border-border hover:border-accent/40 transition-colors text-sm font-medium text-foreground group"
-                 >
-                   <span>GitHub</span>
-                   <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-accent transition-colors" />
-                 </a>
-                 <a
-                   href={CREWCIRCLE_SOCIAL.youtube}
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   className="flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-background border border-border hover:border-accent/40 transition-colors text-sm font-medium text-foreground group"
-                 >
-                   <span>YouTube</span>
-                   <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-accent transition-colors" />
-                 </a>
-               </div>
-             </div>
           </div>
         </div>
       </div>

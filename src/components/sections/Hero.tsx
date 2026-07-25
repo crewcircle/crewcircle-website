@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { HERO_CONTENT, TRUST_METRICS } from '@/lib/config/site';
 import { ArrowRight, ChevronRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function Hero() {
   return (
@@ -19,7 +20,7 @@ export default function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
               </span>
-              AI consultancy for Aussie small business
+              AI that sorts the boring stuff for small business
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-foreground mb-6 leading-[1.1] tracking-tight">
@@ -31,14 +32,16 @@ export default function Hero() {
               {HERO_CONTENT.subheadline}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Link
-                href="/#contact"
-                className="group inline-flex items-center justify-center gap-2 px-7 py-4 bg-accent text-accent-foreground font-semibold rounded-xl hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20 transition-all duration-300 text-base"
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button
+                variant="accent"
+                size="xl"
+                className="hover:shadow-lg hover:shadow-accent/20"
+                render={<Link href="/#contact" />}
               >
                 {HERO_CONTENT.cta}
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
+                <ArrowRight className="w-4 h-4 group-hover/button:translate-x-0.5 transition-transform" />
+              </Button>
               <Link
                 href="/#apps"
                 className="group inline-flex items-center justify-center gap-2 px-7 py-4 border border-border text-foreground font-semibold rounded-xl hover:bg-muted hover:border-border/80 transition-all duration-300 text-base"
@@ -47,22 +50,13 @@ export default function Hero() {
                 <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>
-
-            <div className="flex flex-wrap gap-x-8 gap-y-4 pt-8 border-t border-border/60">
-              {TRUST_METRICS.map((metric) => (
-                <div key={metric.label} className="flex items-baseline gap-2">
-                  <span className="text-2xl font-bold text-foreground">{metric.value}</span>
-                  <span className="text-sm text-muted-foreground">{metric.label}</span>
-                </div>
-              ))}
-            </div>
           </div>
 
           <div className="hidden lg:flex justify-center lg:justify-end">
             <div className="relative">
               <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-accent/20 via-accent/5 to-transparent blur-sm" />
               <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-accent/10 to-primary/10" />
-              
+
               <div className="relative w-80 h-96 rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-accent/10">
                 <Image
                   src="/hero-small-biz.jpg"

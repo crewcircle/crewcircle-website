@@ -1,29 +1,86 @@
+'use client';
+
+import { useState } from 'react';
 import Link from 'next/link';
-import { Camera, Check, Share2, Globe, Lock, Smartphone, ScanLine, ArrowRight, Code2, ChevronRight } from 'lucide-react';
+import { Camera, Check, Share2, Globe, Lock, Smartphone, ScanLine, ArrowRight, Code2, ChevronRight, Menu, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Logo } from '@/components/Logo';
+
+const NAV_LINKS = [
+  { label: 'How It Works', href: '#how-it-works' },
+  { label: 'Features', href: '#features' },
+  { label: 'Download', href: '#download' },
+];
 
 export default function CardSnap() {
+  const [isOpen, setIsOpen] = useState(false);
+  const closeMenu = () => setIsOpen(false);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background border-b border-border">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-primary-foreground font-bold text-lg">
-              CS
-            </div>
+            <Logo className="h-10 w-10" />
             <span className="text-xl font-bold text-foreground">CardSnap</span>
           </div>
           <nav className="hidden md:flex items-center gap-6">
-            <Link href="#how-it-works" className="text-muted-foreground hover:text-primary transition-colors">How It Works</Link>
-            <Link href="#features" className="text-muted-foreground hover:text-primary transition-colors">Features</Link>
-            <Link href="#download" className="text-muted-foreground hover:text-primary transition-colors">Download</Link>
+            {NAV_LINKS.map((link) => (
+              <Link key={link.href} href={link.href} className="text-muted-foreground hover:text-primary transition-colors">{link.label}</Link>
+            ))}
           </nav>
+          <button
+            type="button"
+            onClick={() => setIsOpen((v) => !v)}
+            aria-expanded={isOpen}
+            aria-controls="cardsnap-mobile-menu"
+            aria-label="Toggle navigation menu"
+            className="md:hidden inline-flex items-center justify-center w-10 h-10 text-foreground hover:text-primary transition-colors"
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
       </header>
 
+      {/* Mobile menu */}
+      {isOpen && (
+        <div className="md:hidden fixed inset-0 z-40 bg-black/30" onClick={closeMenu}>
+          <div
+            id="cardsnap-mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation"
+            className="absolute top-0 right-0 w-64 h-full bg-background border-l border-border p-6 flex flex-col gap-2"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex justify-end mb-2">
+              <button
+                type="button"
+                onClick={closeMenu}
+                aria-label="Close menu"
+                className="inline-flex items-center justify-center w-10 h-10 text-foreground hover:text-primary transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={closeMenu}
+                className="text-muted-foreground hover:text-primary transition-colors py-2 text-lg font-medium"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Hero */}
-      <section className="py-20 md:py-32 text-center bg-background">
-        <div className="container mx-auto px-6">
+      <section className="py-24 md:py-32 text-center bg-background">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-medium mb-4">
             <Camera className="w-4 h-4" />
             Built for tradies, cafes & small biz
@@ -35,20 +92,24 @@ export default function CardSnap() {
             Stop typing contacts manually. Snap a card, save it. <span className="text-accent font-semibold">Done. No dramas.</span>
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Link
-              href="#download"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-primary text-primary-foreground rounded-lg text-lg font-semibold hover:bg-primary/90 transition-all duration-200 shadow-sm"
+            <Button
+              variant="default"
+              size="xl"
+              className="hover:bg-accent hover:text-accent-foreground"
+              render={<Link href="#download" />}
             >
               Get it free
               <ArrowRight className="w-5 h-5" />
-            </Link>
-            <Link
-              href="#how-it-works"
-              className="inline-flex items-center gap-2 px-8 py-3.5 border-2 border-foreground text-foreground rounded-lg text-lg font-semibold hover:border-accent hover:text-accent transition-all duration-200"
+            </Button>
+            <Button
+              variant="outline"
+              size="xl"
+              className="border-2 border-foreground hover:border-accent hover:text-accent"
+              render={<Link href="#how-it-works" />}
             >
               Watch it work
               <ChevronRight className="w-5 h-5" />
-            </Link>
+            </Button>
           </div>
           <div className="max-w-md mx-auto">
             <div className="bg-primary/10 rounded-2xl p-8">
@@ -65,8 +126,8 @@ export default function CardSnap() {
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-muted/50" id="how-it-works">
-        <div className="container mx-auto px-6">
+      <section className="py-24 md:py-32 bg-muted/50" id="how-it-works">
+        <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">Sorted in Seconds</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
@@ -88,9 +149,9 @@ export default function CardSnap() {
       </section>
 
       {/* Features */}
-      <section className="py-20 bg-background" id="features">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">Sorted in Seconds</h2>
+      <section className="py-24 md:py-32 bg-background" id="features">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">Features</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { icon: ScanLine, title: 'Contacts sorted in seconds', desc: 'Point, tap, done. Google ML Kit does the rest.' },
@@ -115,8 +176,8 @@ export default function CardSnap() {
         </div>
       </section>
 
-      <section className="py-20 bg-muted/50">
-        <div className="container mx-auto px-6">
+      <section className="py-24 md:py-32 bg-muted/50">
+        <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">What They Say</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {[
@@ -139,27 +200,28 @@ export default function CardSnap() {
       </section>
 
       {/* Download */}
-      <section className="py-20 bg-muted/50" id="download">
-        <div className="container mx-auto px-6 text-center">
+      <section className="py-24 md:py-32 bg-muted/50" id="download">
+        <div className="max-w-7xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Sorted. Get it free.</h2>
           <p className="text-muted-foreground mb-8 max-w-xl mx-auto">Scan cards in seconds. Free forever. No account needed, no dramas.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="https://github.com/crewcircle/CardSnap/releases"
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-all duration-200 shadow-sm"
-              target="_blank"
+            <Button
+              variant="accent"
+              size="xl"
+              render={<Link href="https://github.com/crewcircle/CardSnap/releases" target="_blank" />}
             >
               <Smartphone className="w-5 h-5" />
               Get it free
-            </Link>
-            <Link
-              href="https://github.com/crewcircle/CardSnap"
-              className="inline-flex items-center gap-2 px-6 py-3.5 border-2 border-foreground text-foreground rounded-lg font-semibold hover:border-accent hover:text-accent transition-all duration-200"
-              target="_blank"
+            </Button>
+            <Button
+              variant="outline"
+              size="xl"
+              className="border-2 border-foreground hover:border-accent hover:text-accent"
+              render={<Link href="https://github.com/crewcircle/CardSnap" target="_blank" />}
             >
               <Code2 className="w-5 h-5" />
               View Source
-            </Link>
+            </Button>
           </div>
           <p className="mt-6 text-sm text-muted-foreground">Requires Android 8.0 (API 26) or higher</p>
         </div>
@@ -167,7 +229,7 @@ export default function CardSnap() {
 
       {/* Footer */}
       <footer className="bg-card border-t border-border py-12">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <p className="text-muted-foreground text-sm">&copy; 2024 CardSnap. Built by <Link href="/" className="text-accent hover:text-accent/80 transition-colors">CrewCircle</Link>.</p>
           </div>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.crewcircle.social.publish</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/Users/prabhatranjan/Business/crewcircle/crewcircle-website/scripts/social/.venv/bin/python</string>
+      <string>scripts/social/publish.py</string>
+      <string>--config</string>
+      <string>scripts/social/secret/config.yaml</string>
+      <string>--calendar</string>
+      <string>scripts/social/calendar.yaml</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/prabhatranjan/Business/crewcircle/crewcircle-website</string>
+
+    <key>StartCalendarInterval</key>
+    <array>
+      <dict>
+        <key>Minute</key>
+        <integer>0</integer>
+      </dict>
+      <dict>
+        <key>Minute</key>
+        <integer>30</integer>
+      </dict>
+    </array>
+
+    <key>StandardOutPath</key>
+    <string>/Users/prabhatranjan/Business/crewcircle/crewcircle-website/scripts/social/secret/publish.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/prabhatranjan/Business/crewcircle/crewcircle-website/scripts/social/secret/publish.log</string>
+  </dict>
+</plist>

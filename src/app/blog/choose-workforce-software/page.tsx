@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function ChooseWorkforceSoftware() {
   return (
@@ -30,7 +31,7 @@ export default function ChooseWorkforceSoftware() {
         </div>
 
         <div className="mt-12 text-center">
-          <Link href="/" className="px-6 py-3 bg-accent text-accent-foreground rounded-lg text-md font-bold hover:bg-accent/90 transition-all">Back to Home</Link>
+          <Button variant="accent" size="xl" className="font-bold" render={<Link href="/" />}>Back to Home</Button>
         </div>
       </article>
     </div>

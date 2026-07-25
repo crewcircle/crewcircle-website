@@ -1,0 +1,24 @@
+[project]
+name = "crewcircle-database"
+version = "0.1.0"
+description = "Supabase Postgres client factories, RLS helpers, and migration runner for CrewCircle"
+requires-python = ">=3.11"
+dependencies = [
+    "supabase>=2.0",
+    "psycopg[binary]>=3.1",
+]
+
+[project.optional-dependencies]
+sqlalchemy = ["sqlalchemy>=2.0"]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.4",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["crewcircle_database*"]

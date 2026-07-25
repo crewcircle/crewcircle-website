@@ -11,8 +11,18 @@ REGISTRY="$INFRA_DIR/registry.json"
 REPO_ROOT="$(dirname "$(dirname "$INFRA_DIR")")"
 [ -f "$REPO_ROOT/.env.local" ] && set -a && source "$REPO_ROOT/.env.local" && set +a
 
+# Parse flags before positional args
+NON_INTERACTIVE=false
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --non-interactive|--yes) NON_INTERACTIVE=true; shift ;;
+    *) break ;;
+  esac
+done
+
 if [[ $# -lt 3 ]]; then
-    echo "Usage: bin/newproject <project-id> <name> <description> [price-cents]"
+    echo "Usage: bin/newproject [--non-interactive] <project-id> <name> <description> [price-cents]"
+    echo "  --non-interactive, --yes  Skip confirmation prompt (for automation)"
     echo "Example: bin/newproject local-biz-au 'Local Biz' 'AU SMB automation' 19900"
     exit 1
 fi
@@ -44,8 +54,10 @@ echo "  Project : $PROJECT_NAME ($PROJECT_ID)"
 echo "  Price   : \$$(echo "scale=2; $PRICE_CENTS/100" | bc) AUD/month"
 echo "  ESC     : crewcircle/$PROJECT_ID"
 echo ""
-read -rp "Proceed? [y/N] " confirm
-[[ "$confirm" =~ ^[yY]$ ]] || { echo "Aborted."; exit 0; }
+if [[ "$NON_INTERACTIVE" != true ]]; then
+  read -rp "Proceed? [y/N] " confirm
+  [[ "$confirm" =~ ^[yY]$ ]] || { echo "Aborted."; exit 0; }
+fi
 
 # Create ESC environment for this project (imports from master)
 pulumi env init "crewcircle/$PROJECT_ID" --file "$INFRA_DIR/esc/project.yaml"

@@ -1,0 +1,9 @@
+.venv/
+secret/
+__pycache__/
+*.pyc
+*.pyo
+calendar.yaml
+publish.log
+*.log
+state.yaml
