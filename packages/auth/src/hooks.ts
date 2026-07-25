@@ -6,8 +6,6 @@ import type { Organization, OrganizationMember, Role } from "./types";
 import {
   createAuthClient,
   getSession,
-  getUser,
-  getActiveOrg,
   signOut as clientSignOut,
   onAuthStateChange,
 } from "./client";
@@ -73,10 +71,12 @@ export function useOrg(): OrgState {
     if (authLoading) return;
 
     if (!user) {
-      setOrg(null);
-      setMembership(null);
-      setRole(null);
-      setLoading(false);
+      queueMicrotask(() => {
+        setOrg(null);
+        setMembership(null);
+        setRole(null);
+        setLoading(false);
+      });
       return;
     }
 
@@ -85,14 +85,17 @@ export function useOrg(): OrgState {
       (user.app_metadata as Record<string, string>)?.org_id;
 
     if (!orgId) {
-      setOrg(null);
-      setMembership(null);
-      setRole(null);
-      setLoading(false);
+      queueMicrotask(() => {
+        setOrg(null);
+        setMembership(null);
+        setRole(null);
+        setLoading(false);
+      });
       return;
     }
 
     const client = createAuthClient();
+    let mounted = true;
 
     Promise.all([
       client.from("organizations").select("*").eq("id", orgId).single(),
@@ -104,12 +107,19 @@ export function useOrg(): OrgState {
         .single(),
     ])
       .then(([orgRes, memberRes]) => {
+        if (!mounted) return;
         const member = (memberRes.data as OrganizationMember) ?? null;
         setOrg((orgRes.data as Organization) ?? null);
         setMembership(member);
         setRole(member?.role ?? null);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (mounted) setLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+    };
   }, [user, authLoading]);
 
   return { org, membership, role, loading };
@@ -121,11 +131,12 @@ export function useIsMember(orgId: string | null): boolean {
 
   useEffect(() => {
     if (authLoading || !user || !orgId) {
-      setIsMember(false);
+      queueMicrotask(() => setIsMember(false));
       return;
     }
 
     const client = createAuthClient();
+    let mounted = true;
 
     client
       .from("organization_members")
@@ -133,8 +144,12 @@ export function useIsMember(orgId: string | null): boolean {
       .eq("org_id", orgId)
       .eq("user_id", user.id)
       .then(({ count }) => {
-        setIsMember((count ?? 0) > 0);
+        if (mounted) setIsMember((count ?? 0) > 0);
       });
+
+    return () => {
+      mounted = false;
+    };
   }, [user, authLoading, orgId]);
 
   return isMember;

@@ -1,8 +1,5 @@
 import { TESTIMONIALS } from '@/lib/config/testimonials';
-import { IMPACT_STORIES } from '@/lib/config/content';
-import { TrendingUp, ShieldCheck, Clock, UtensilsCrossed, Quote } from 'lucide-react';
-
-const STORY_ICONS = [TrendingUp, ShieldCheck, Clock, UtensilsCrossed] as const;
+import { Quote } from 'lucide-react';
 
 export default function ProofSection() {
   return (
@@ -16,11 +13,11 @@ export default function ProofSection() {
             Why small business owners trust CrewCircle
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Tools built for Aussie tradies, cafés, clinics and shops — plus the engineering depth behind them.
+            Tools built for Aussie tradies, cafés, clinics and shops.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {TESTIMONIALS.map((t) => (
             <div
               key={t.name}
@@ -39,55 +36,6 @@ export default function ProofSection() {
               </div>
             </div>
           ))}
-        </div>
-
-        <div className="border-t border-border pt-16">
-          <div className="max-w-2xl mb-10">
-            <h3 className="text-xl font-semibold text-foreground mb-2">
-              Engineering depth that scales
-            </h3>
-            <p className="text-muted-foreground">
-              The same rigour applied to CrewCircle apps has delivered results for larger projects too.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {IMPACT_STORIES.map((story, idx) => {
-              const Icon = STORY_ICONS[idx % STORY_ICONS.length];
-              return (
-                <div
-                  key={story.title}
-                  className="rounded-xl border border-border bg-card p-6 md:p-8 hover:shadow-md hover:border-accent/20 transition-all duration-200 group"
-                >
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-200">
-                      <Icon className="w-5 h-5 text-accent group-hover:text-accent-foreground transition-colors" />
-                    </div>
-                    <h4 className="text-lg font-bold text-foreground">
-                      {story.title}
-                    </h4>
-                  </div>
-
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-                    {story.description}
-                  </p>
-
-                  <div className="grid grid-cols-3 gap-4">
-                    {story.metrics.map((metric) => (
-                      <div key={metric.label}>
-                        <div className="text-xl md:text-2xl font-bold text-accent">
-                          {metric.value}
-                        </div>
-                        <div className="text-xs text-muted-foreground mt-1 leading-tight">
-                          {metric.label}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
         </div>
       </div>
     </section>

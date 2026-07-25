@@ -14,25 +14,25 @@ export const LOCATIONS: LocationProfile[] = [
     slug: 'sydney',
     city: 'Sydney',
     state: 'NSW',
-    tagline: 'AI that sorts the boring stuff for Sydney small business',
+    tagline: 'Built for tradies, cafés, and clinics across the Harbour City',
     intro:
-      'From the Eastern Suburbs to Western Sydney, tradies, cafés, clinics and shops are using CrewCircle to sort rostering, tax and compliance — without the enterprise price tag.',
+      'From Bondi cafés to Western Sydney tradies, Sydney businesses use CrewCircle to sort rostering, tax compliance, and bookkeeping without the enterprise price tag.',
     prioritySegments: ['tradies', 'cafes', 'clinics', 'retail'],
   },
   {
     slug: 'melbourne',
     city: 'Melbourne',
     state: 'VIC',
-    tagline: 'Practical AI tools for Melbourne small business',
+    tagline: 'Melbourne small business runs on CrewCircle',
     intro:
-      "Melbourne's cafés, tradies and independent retailers run on tight margins. CrewCircle automates the back-office so you can stay on the tools instead of the spreadsheet.",
+      "Melbourne's laneway cafés, inner-city tradies, and independent retailers run on tight margins. CrewCircle automates the back-office so you stay on the tools instead of the spreadsheet.",
     prioritySegments: ['cafes', 'tradies', 'retail', 'clinics'],
   },
   {
     slug: 'brisbane',
     city: 'Brisbane',
     state: 'QLD',
-    tagline: 'AI back-office for Brisbane small business',
+    tagline: 'Queensland tradies and clinics sort admin in minutes',
     intro:
       'Brisbane tradies and allied-health practices are sorting rosters, invoices and BAS in minutes with CrewCircle — built for the way Queensland businesses actually work.',
     prioritySegments: ['tradies', 'clinics', 'cafes', 'retail'],
@@ -41,16 +41,16 @@ export const LOCATIONS: LocationProfile[] = [
     slug: 'perth',
     city: 'Perth',
     state: 'WA',
-    tagline: 'Smart tools for Perth small business',
+    tagline: 'WA operators keep paperwork sorted with CrewCircle',
     intro:
-      'Perth operators — from mines-adjacent tradies to suburban cafés and clinics — use CrewCircle to keep the paperwork sorted and stay focused on the work that pays.',
+      'From mines-adjacent tradies to suburban cafés and clinics — Perth operators use CrewCircle to keep the paperwork sorted and stay focused on the work that pays.',
     prioritySegments: ['tradies', 'retail', 'cafes', 'clinics'],
   },
   {
     slug: 'adelaide',
     city: 'Adelaide',
     state: 'SA',
-    tagline: 'AI that works for Adelaide small business',
+    tagline: 'Adelaide small business automates the boring stuff',
     intro:
       "Adelaide's tight-knit small-business community is picking up CrewCircle to automate rostering, bookkeeping and compliance — practical software that just works.",
     prioritySegments: ['retail', 'cafes', 'tradies', 'clinics'],

@@ -3,7 +3,30 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { FOUNDER } from '@/lib/config/founder';
 import { SOCIAL_ICONS } from '@/lib/config/social';
-import { MapPin } from 'lucide-react';
+import { MapPin, ShieldCheck, TrendingUp } from 'lucide-react';
+
+const FOUNDER_IMPACT = [
+  {
+    title: 'Healthcare Platform',
+    description: 'AI-powered clinical decision support that transformed healthcare delivery operations.',
+    metrics: [
+      { value: '83%', label: 'Subscription revenue growth' },
+      { value: '3×', label: 'Client capacity increase' },
+      { value: '76%', label: 'Infrastructure cost reduction' },
+    ],
+    icon: TrendingUp,
+  },
+  {
+    title: 'Financial Services',
+    description: 'Enterprise-grade analytics platform serving global investment firms with zero-downtime operations.',
+    metrics: [
+      { value: '400+', label: 'Funds managed' },
+      { value: '7', label: 'New ESG clients onboarded' },
+      { value: '0', label: 'Downtime incidents' },
+    ],
+    icon: ShieldCheck,
+  },
+];
 
 export default function AboutSection() {
   return (
@@ -22,8 +45,8 @@ export default function AboutSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-          <div className="lg:col-span-3 space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="space-y-8">
             <div className="flex items-start gap-5">
               <div className="relative w-20 h-20 rounded-full overflow-hidden bg-gradient-to-br from-accent/10 to-primary/10 border-2 border-accent/20 flex-shrink-0">
                 <Image
@@ -59,27 +82,51 @@ export default function AboutSection() {
             </p>
           </div>
 
-          <div className="lg:col-span-2 space-y-8">
-            <div className="rounded-xl border border-border bg-accent/5 p-6">
-              <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-3">
-                Follow crew circle
-              </h4>
-              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                Get the latest updates, insights, and behind-the-scenes content from our crew circle journey.
+          <div className="space-y-8">
+            <div className="space-y-6 pt-6 border-t border-border">
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-accent" />
+                <h4 className="text-lg font-semibold text-foreground">Engineering depth that scales</h4>
+              </div>
+              <p className="text-muted-foreground text-sm">
+                The same rigour applied to CrewCircle apps has delivered results for larger projects too.
               </p>
-              <div className="flex flex-wrap gap-2">
-                {SOCIAL_ICONS.map(({ href, icon, label }) => (
-                  <Button
-                    key={label}
-                    variant="ghost"
-                    size="icon"
-                    className="text-muted-foreground hover:text-foreground hover:bg-accent/10"
-                    aria-label={label}
-                    render={<Link href={href} target="_blank" rel="noopener noreferrer" />}
-                  >
-                    {icon('w-5 h-5')}
-                  </Button>
-                ))}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {FOUNDER_IMPACT.map((story) => {
+                  const Icon = story.icon;
+                  return (
+                    <div
+                      key={story.title}
+                      className="rounded-xl border border-border bg-card p-5 hover:shadow-md hover:border-accent/20 transition-all duration-200"
+                    >
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center">
+                          <Icon className="w-4.5 h-4.5 text-accent" />
+                        </div>
+                        <h5 className="text-base font-bold text-foreground">
+                          {story.title}
+                        </h5>
+                      </div>
+
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                        {story.description}
+                      </p>
+
+                      <div className="grid grid-cols-3 gap-3">
+                        {story.metrics.map((metric) => (
+                          <div key={metric.label}>
+                            <div className="text-lg font-bold text-accent">
+                              {metric.value}
+                            </div>
+                            <div className="text-[11px] text-muted-foreground mt-0.5 leading-tight">
+                              {metric.label}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>

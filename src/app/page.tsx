@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic';
 import Hero from '@/components/sections/Hero';
 import ServicesSection from '@/components/sections/ServicesSection';
-import ProofSection from '@/components/sections/ProofSection';
 import AboutSection from '@/components/sections/AboutSection';
 import ContactSection from '@/components/sections/ContactSection';
 
@@ -22,7 +21,6 @@ export default function HomePage() {
       <Hero />
       <AppsGrid />
       <ServicesSection />
-      <ProofSection />
       <AboutSection />
       <ContactSection />
     </>

@@ -20,7 +20,7 @@ export interface AppDef {
 
 export const APPS: AppDef[] = [
   {
-    name: 'TaxFlowAI',
+    name: 'TaxFlow',
     slug: 'taxflowai',
     oneLiner: 'ATO tax research, done.',
     features: ['Cited ATO answers', 'ATO letter response drafting', 'Firm knowledge base', 'Document generation'],
@@ -31,7 +31,7 @@ export const APPS: AppDef[] = [
       web: 'https://taxflow.crewcircle.com.au',
     },
     description:
-      'AI research assistant built for Australian tax professionals and accounting firms. Ask ATO questions in plain English and get cited answers drawn from public rulings, tax determinations, and legislation. Upload an ATO letter and get a drafted response, generate firm-branded documents, and build a private knowledge base from your own precedents. Every answer shows its sources.',
+      'AI research assistant for Australian tax professionals. Ask ATO questions in plain English, get cited answers from public rulings and legislation. Upload an ATO letter for a drafted response, generate firm-branded documents, build a private knowledge base.',
     featured: true,
   },
   {
@@ -46,7 +46,7 @@ export const APPS: AppDef[] = [
       web: 'https://localmate.crewcircle.com.au',
     },
     description:
-      'Local business automation for Australian SMBs. One dashboard runs five AI jobs: Review Guard drafts replies to Google and Yelp reviews; Rank Report tracks your local SEO weekly; Competitor Watch keeps an eye on nearby rivals; Rebook follows up lapsed customers by SMS and email; Menu Sync pushes updates from Google Sheets to Google Business Profile and Square. Built to save hours every week.',
+      'One dashboard runs five AI jobs: Review Guard drafts replies to Google and Yelp reviews; Rank Report tracks local SEO weekly; Competitor Watch monitors nearby rivals; Rebook follows up lapsed customers by SMS and email; Menu Sync pushes updates from Google Sheets to Google Business Profile and Square.',
     featured: true,
   },
   {
@@ -61,48 +61,48 @@ export const APPS: AppDef[] = [
       web: 'https://roster.crewcircle.com.au',
     },
     description:
-      'Digital rostering and timesheets for shift-based crews. Schedule shifts, record GPS clock-in and clock-out, and export hours for payroll. Built for Aussie cafes, shops, and tradies. Free for up to 5 employees; paid plans scale per employee.',
+      'Digital rostering and timesheets for shift-based crews. Schedule shifts, record GPS clock-in and clock-out, export hours for payroll. Built for Aussie cafes, shops, and tradies. Free for up to 5 employees; paid plans scale per employee.',
     featured: false,
   },
   {
     name: 'SmartGL',
     slug: 'smartgl',
-    oneLiner: 'AI bookkeeping with Australian GST in mind. Live August 2026.',
+    oneLiner: 'AI bookkeeping with Australian GST.',
     features: ['Bank feed sync', 'AI categorisation', 'Double-entry ledger', 'GST/BAS ready'],
     icon: 'BookOpen',
     theme: 'blue',
     ctaType: 'coming-soon',
     links: {},
     description:
-      'AI bookkeeping engine that connects to Australian bank feeds, categorises transactions automatically, and maintains a double-entry ledger. Built around the Formance ledger with Australian GST and BAS reporting in mind. Launching August 2026 — join the waitlist to test the workflow.',
+      'Connects to Australian bank feeds, auto-categorises transactions, maintains a double-entry ledger with GST/BAS reporting.',
     featured: false,
     beta: true,
   },
   {
     name: 'CardSnap',
     slug: 'cardsnap',
-    oneLiner: 'Snap cards, save contacts. Mobile app — live August 2026.',
+    oneLiner: 'Snap cards, save contacts. Mobile app.',
     features: ['On-device OCR', 'Contact save', 'CSV export', 'Search history'],
     icon: 'Camera',
     theme: 'green',
     ctaType: 'coming-soon',
     links: {},
     description:
-      'Free business-card scanner. Snap a card with your phone and the contact details land straight in your address book. On-device OCR means nothing leaves your phone. Export to CSV, search your history, and never lose a lead again. Launching on the App Store and Google Play in August 2026.',
+      'Free business-card scanner with on-device OCR. Snap a card, contacts land in your address book. Export CSV, search history.',
     featured: false,
     beta: true,
   },
   {
     name: 'AuRate',
     slug: 'aurate',
-    oneLiner: 'ATO admin in one click. Chrome extension — live August 2026.',
+    oneLiner: 'ATO admin in one click. Chrome extension.',
     features: ['ABN lookup', 'ATO rates', 'BAS reminders', 'Chrome extension'],
     icon: 'Wrench',
     theme: 'purple',
     ctaType: 'coming-soon',
     links: {},
     description:
-      'Free Chrome sidekick for Australian sole traders and small businesses. Validate an ABN in one click, check ATO rates and thresholds, and get BAS deadline reminders without leaving your browser. No account required. Launching on the Chrome Web Store in August 2026.',
+      'Free Chrome sidekick for sole traders. Validate ABN, check ATO rates, get BAS reminders without leaving your browser.',
     featured: false,
     beta: true,
   },

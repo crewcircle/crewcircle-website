@@ -5,6 +5,7 @@ export interface PricingTier {
   blurb: string;
   features: string[];
   highlight?: boolean;
+  note?: string;
   cta: { label: string; href: string };
 }
 

@@ -25,9 +25,6 @@ export default function AppCard({ app, compact = false }: AppCardProps) {
       {app.featured && (
         <span className="absolute right-4 top-4 z-10 inline-flex items-center rounded-full bg-accent px-2.5 py-0.5 text-xs font-semibold text-accent-foreground">Featured</span>
       )}
-      {app.beta && (
-        <span className="absolute right-4 top-4 z-10 inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-xs font-semibold text-muted-foreground">Beta</span>
-      )}
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent/0 via-accent/40 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
       <div className={`flex items-center gap-4 ${compact ? 'mb-3' : 'mb-4'}`}>
@@ -123,7 +120,7 @@ export default function AppCard({ app, compact = false }: AppCardProps) {
             className="w-full"
             disabled
           >
-            Coming soon
+            Beta
           </Button>
         )}
       </div>

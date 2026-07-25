@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import { Calendar, ExternalLink, Mail, Phone } from 'lucide-react';
 import { FOUNDER } from '@/lib/config/founder';
+import { SOCIAL_ICONS } from '@/lib/config/social';
 import ContactForm from '@/components/ContactForm';
 import { Button } from '@/components/ui/button';
 
 export default function ContactSection() {
   return (
-      <section id="contact" className="py-24 md:py-32 px-6 bg-background">
+    <section id="contact" className="py-24 md:py-32 px-6 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="max-w-2xl mx-auto text-center mb-12">
           <span className="text-xs font-semibold tracking-widest uppercase text-accent mb-3 block">
@@ -24,9 +25,9 @@ export default function ContactSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Calendar booking */}
-          <div className="lg:col-span-2 order-2 lg:order-1">
+          <div>
             <div className="rounded-xl border border-border bg-muted/30 p-6 h-full">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
@@ -78,11 +79,34 @@ export default function ContactSection() {
                   ABN 86 699 000 5064
                 </p>
               </div>
+
+              <div className="mt-8 pt-8 border-t border-border">
+                <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-3">
+                  Follow crew circle
+                </h4>
+                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                  Get the latest updates, insights, and behind-the-scenes content from our crew circle journey.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {SOCIAL_ICONS.map(({ href, icon, label }) => (
+                    <Button
+                      key={label}
+                      variant="ghost"
+                      size="icon"
+                      className="text-muted-foreground hover:text-foreground hover:bg-accent/10"
+                      aria-label={label}
+                      render={<Link href={href} target="_blank" rel="noopener noreferrer" />}
+                    >
+                      {icon('w-5 h-5')}
+                    </Button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Contact form */}
-          <div className="lg:col-span-3 order-1 lg:order-2">
+          <div>
             <ContactForm />
           </div>
         </div>
