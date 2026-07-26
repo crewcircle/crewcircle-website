@@ -6,7 +6,6 @@ export default defineConfig({
     globals: true,
     environment: 'node',
     include: ['test/**/*.test.ts'],
-    setupFiles: ['./test/setup.ts'],
     testTimeout: 30000,
     hookTimeout: 30000,
     coverage: {
@@ -21,4 +20,5 @@ export default defineConfig({
       '@crewcircle/knowledge': path.resolve(__dirname, './src/index.ts'),
     },
   },
+  tsconfig: './tsconfig.json',
 });

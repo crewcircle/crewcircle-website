@@ -181,12 +181,14 @@ export const knowledge = new Knowledge();
 
 export function registerDefaultProviders(embeddedDataDir?: string, postgresConnectionString?: string): void {
   if (embeddedDataDir) {
-    const { EmbeddedProvider } = require('./embedded');
-    knowledge.registerProvider(new EmbeddedProvider({ dataDir: embeddedDataDir, pythonPath: 'python3' }));
+    import('./embedded').then(({ EmbeddedProvider }) => {
+      knowledge.registerProvider(new EmbeddedProvider({ dataDir: embeddedDataDir, pythonPath: 'python3' }));
+    });
   }
   if (postgresConnectionString) {
-    const { PostgresProvider } = require('./postgres');
-    knowledge.registerProvider(new PostgresProvider({ connectionString: postgresConnectionString }));
+    import('./postgres').then(({ PostgresProvider }) => {
+      knowledge.registerProvider(new PostgresProvider({ connectionString: postgresConnectionString, vectorExtension: 'pgvector' }));
+    });
   }
 }
 

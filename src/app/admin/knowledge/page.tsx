@@ -1,5 +1,5 @@
-import { getOrgMemory } from "@crewcircle/knowledge";
-import { Search, FileText, Database, Zap, Loader2 } from "lucide-react";
+import { getOrgMemory, InternalMemory } from "@crewcircle/knowledge";
+import { Search, FileText, Database, Zap, Loader2, TrendingUp } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -14,14 +14,14 @@ interface KnowledgeStats {
 
 async function getKnowledgeStats(): Promise<KnowledgeStats> {
   try {
-    const memory = await getOrgMemory({ provider: "mock" });
+    const memory = await InternalMemory.create({ provider: "mock" });
 
     const [standards, decisions, projects, retros, techs, adrs] = await Promise.all([
       memory.searchStandards("").then(r => r.chunks.length),
       memory.searchDecisions("").then(r => r.chunks.length),
       memory.searchProjects("").then(r => r.chunks.length),
       memory.searchRetrospectives("").then(r => r.chunks.length),
-      memory.searchProjects("").then(r => r.chunks.length),
+      memory.searchTechnologies("").then(r => r.chunks.length),
       memory.searchADRs("").then(r => r.chunks.length),
     ]);
 

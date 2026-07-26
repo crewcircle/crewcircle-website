@@ -311,6 +311,14 @@ export class InternalMemory {
     });
   }
 
+  async searchTechnologies(query: string, options?: { limit?: number }): Promise<RetrievalResult> {
+    return this.graph.search({
+      query,
+      filters: { entityTypes: [InternalEntityTypes.TECHNOLOGY] },
+      limit: options?.limit ?? 10,
+    });
+  }
+
   async getDecisionContext(decisionId: string, depth = 2) {
     return this.graph.getEntityNeighbors(
       decisionId,

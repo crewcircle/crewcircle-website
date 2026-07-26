@@ -80,9 +80,9 @@ export class R2BackupService {
     namespace: string,
     tenantId: string | undefined,
     provider: string,
-    documents: any[],
-    entities: any[],
-    relations: any[]
+    documents: Record<string, unknown>[],
+    entities: Record<string, unknown>[],
+    relations: Record<string, unknown>[]
   ): Promise<BackupMetadata> {
     const timestamp = new Date().toISOString();
     const backupId = `${namespace}-${tenantId ?? "default"}-${timestamp.replace(/[:.]/g, "-")}`;
@@ -196,7 +196,7 @@ export class R2BackupService {
     return backups.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   }
 
-  async restoreBackup(backupId: string): Promise<{ documents: any[]; entities: any[]; relations: any[]; manifest: BackupManifest }> {
+  async restoreBackup(backupId: string): Promise<{ documents: Record<string, unknown>[]; entities: Record<string, unknown>[]; relations: Record<string, unknown>[]; manifest: BackupManifest }> {
     const manifestKey = `${this.prefix}/${backupId}/manifest.json`;
     const manifestResponse = await this.client.send(new GetObjectCommand({
       Bucket: this.bucketName,
@@ -212,14 +212,14 @@ export class R2BackupService {
           Key: table.s3Key,
         }));
         const dataStr = await streamToString(response.Body as Readable);
-        return JSON.parse(dataStr);
+        return JSON.parse(dataStr) as Record<string, unknown>[];
       })
     );
 
     return {
-      documents: documents as any[],
-      entities: entities as any[],
-      relations: relations as any[],
+      documents,
+      entities,
+      relations,
       manifest,
     };
   }
