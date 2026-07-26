@@ -1,0 +1,111 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+    tags:
+      - 'knowledge-v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+  pull-requests: write
+  issues: write
+  id-token: write
+
+jobs:
+  version:
+    name: Version Packages
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    outputs:
+      has_changesets: ${{ steps.changesets.outputs.has_changesets }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install changesets
+        run: npm install -g @changesets/cli
+
+      - name: Check for changesets
+        id: changesets
+        run: |
+          if npx changeset status --since=main >/dev/null 2>&1; then
+            echo "has_changesets=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changesets=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Version packages
+        if: steps.changesets.outputs.has_changesets == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          npx changeset version
+          git add -A
+          git commit -m "chore: version packages [skip ci]" || true
+          git push
+
+      - name: Create Release PR
+        if: steps.changesets.outputs.has_changesets == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: changeset-release
+          title: 'chore: version packages'
+          body: |
+            This PR was created automatically by the release workflow.
+            It contains version bumps and changelog updates from merged changesets.
+          labels: |
+            release
+            automated
+          draft: false
+
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/knowledge-v')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build knowledge package
+        run: npm run build --workspace=@crewcircle/knowledge
+
+      - name: Verify package
+        run: |
+          cd packages/knowledge/dist
+          npm pack --dry-run
+
+      - name: Publish to npm
+        run: npm publish packages/knowledge/dist --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
