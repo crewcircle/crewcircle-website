@@ -28,6 +28,7 @@ export interface CostDashboardData {
 }
 
 export interface FixedCostItem {
+  [key: string]: unknown;
   id: string;
   name: string;
   category: string;

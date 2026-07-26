@@ -7,7 +7,9 @@ async function checkAuth(): Promise<NextResponse | null> {
     await requireAdmin();
     return null;
   } catch (e) {
-    if (e instanceof Response) return e;
+    if (e instanceof Response) {
+      return new NextResponse(e.body, { status: e.status, headers: e.headers });
+    }
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 }

@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { StatusBadge } from "@crewcircle/admin-ui";
 import { readRegistry } from "@/lib/admin/registry";
 import { getRepo } from "@/lib/admin/github";
-import { ExternalLink, Github, BarChart3 } from "lucide-react";
+import { ExternalLink, GitFork, BarChart3 } from "lucide-react";
 import { DestroyProjectButton } from "./destroy-button";
 
 export const dynamic = "force-dynamic";
@@ -57,7 +57,7 @@ export default async function ProjectDetailPage({
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
             >
-              <Github className="h-4 w-4" />
+              <GitFork className="h-4 w-4" />
               GitHub
             </a>
           )}

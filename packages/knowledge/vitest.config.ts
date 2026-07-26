@@ -20,5 +20,4 @@ export default defineConfig({
       '@crewcircle/knowledge': path.resolve(__dirname, './src/index.ts'),
     },
   },
-  tsconfig: './tsconfig.json',
 });

@@ -2,8 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { DataTable, StatusBadge } from "@crewcircle/admin-ui";
+import type { DataTableColumn } from "@crewcircle/admin-ui";
 
 interface ProjectRow {
+  [key: string]: unknown;
   id: string;
   name: string;
   status: string;
@@ -15,7 +17,7 @@ interface ProjectRow {
 export function ProjectsTable({ projects }: { projects: ProjectRow[] }) {
   const router = useRouter();
 
-  const columns = [
+  const columns: DataTableColumn<ProjectRow>[] = [
     { key: "name", header: "Project", sortable: true },
     { key: "id", header: "ID", sortable: true },
     {
@@ -54,7 +56,7 @@ export function ProjectsTable({ projects }: { projects: ProjectRow[] }) {
   ];
 
   return (
-    <DataTable
+    <DataTable<ProjectRow>
       columns={columns}
       rows={projects}
       emptyMessage="No projects registered yet. Provision one to get started."

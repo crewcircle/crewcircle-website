@@ -3,32 +3,32 @@
   "version": "0.1.0",
   "description": "CrewCircle Knowledge Layer - Internal Org Memory & External App Context Layer",
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
+      "import": "./dist/esm/index.js",
       "require": "./dist/index.js"
     },
     "./core": {
       "types": "./dist/core/index.d.ts",
-      "import": "./dist/core/index.mjs",
+      "import": "./dist/esm/core/index.js",
       "require": "./dist/core/index.js"
     },
     "./providers": {
       "types": "./dist/providers/index.d.ts",
-      "import": "./dist/providers/index.mjs",
+      "import": "./dist/esm/providers/index.js",
       "require": "./dist/providers/index.js"
     },
     "./internal": {
       "types": "./dist/internal/index.d.ts",
-      "import": "./dist/internal/index.mjs",
+      "import": "./dist/esm/internal/index.js",
       "require": "./dist/internal/index.js"
     },
     "./external": {
       "types": "./dist/external/index.d.ts",
-      "import": "./dist/external/index.mjs",
+      "import": "./dist/esm/external/index.js",
       "require": "./dist/external/index.js"
     },
     "./ai-sdk": {
