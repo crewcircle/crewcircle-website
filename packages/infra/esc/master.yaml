@@ -6,6 +6,7 @@ values:
     GITHUB_TOKEN: ${GITHUB_TOKEN}
     SENTRY_TOKEN: ${SENTRY_TOKEN}
     DOPPLER_TOKEN: ${DOPPLER_TOKEN}
+    OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
   pulumiConfig:
     github_org: ${CC_GITHUB_USERNAME}
     doppler_token: ${DOPPLER_TOKEN}
@@ -16,3 +17,4 @@ values:
     cloudflare_api_token: ${CLOUDFLARE_API_TOKEN}
     cloudflare_zone_id: ${CLOUDFLARE_ZONE_ID}
     stripe_secret_key: ${STRIPE_SECRET_KEY}
+    openrouter_api_key: ${OPENROUTER_API_KEY}

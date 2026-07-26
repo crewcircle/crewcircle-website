@@ -1,5 +1,7 @@
-import { Calendar, ExternalLink } from 'lucide-react';
+import Link from 'next/link';
+import { Calendar, ExternalLink, Mail, Phone } from 'lucide-react';
 import { FOUNDER } from '@/lib/config/founder';
+import { SOCIAL_ICONS } from '@/lib/config/social';
 import ContactForm from '@/components/ContactForm';
 import { Button } from '@/components/ui/button';
 

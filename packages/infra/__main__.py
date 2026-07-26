@@ -36,6 +36,13 @@ master_cloudflare_token = ActionsOrganizationSecret(
     value=config.require_secret("cloudflare_api_token"),
 )
 
+master_openrouter_token = ActionsOrganizationSecret(
+    "openrouter-api-key",
+    secret_name="OPENROUTER_API_KEY",
+    visibility="all",
+    value=config.require_secret("openrouter_api_key"),
+)
+
 master_esc_var = ActionsOrganizationVariable(
     "esc-env",
     variable_name="ESC_ENV",
@@ -58,4 +65,4 @@ sentry_core_team = SentryTeam(
 
 pulumi.export("github_org", github_org)
 pulumi.export("sentry_team_id", sentry_core_team.id)
-pulumi.export("secrets_count", 4)
+pulumi.export("secrets_count", 5)

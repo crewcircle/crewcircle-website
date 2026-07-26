@@ -1,6 +1,40 @@
+import Image from 'next/image';
 import { FOUNDER } from '@/lib/config/founder';
 import { CREWCIRCLE_SOCIAL } from '@/lib/config/social';
-import { Award, Code, ExternalLink, GraduationCap, MapPin, User } from 'lucide-react';
+import { Award, Code, ExternalLink, GraduationCap, MapPin, ShieldCheck, TrendingUp, User, UtensilsCrossed } from 'lucide-react';
+
+const FOUNDER_IMPACT = [
+  {
+    title: 'Healthcare Platform',
+    description: 'AI-powered clinical decision support that transformed healthcare delivery operations.',
+    metrics: [
+      { value: '83%', label: 'Subscription revenue growth' },
+      { value: '3×', label: 'Client capacity increase' },
+      { value: '76%', label: 'Infrastructure cost reduction' },
+    ],
+    icon: TrendingUp,
+  },
+  {
+    title: 'Financial Services',
+    description: 'Enterprise-grade analytics platform serving global investment firms with zero-downtime operations.',
+    metrics: [
+      { value: '400+', label: 'Funds managed' },
+      { value: '7', label: 'New ESG clients onboarded' },
+      { value: '0', label: 'Downtime incidents' },
+    ],
+    icon: ShieldCheck,
+  },
+  {
+    title: 'Tradie CrewRoster',
+    description: 'Replaced paper timesheets with GPS-tracked digital clock-ins for a 30-person construction crew.',
+    metrics: [
+      { value: '12', label: 'Hours saved per week' },
+      { value: '100%', label: 'Payroll accuracy' },
+      { value: '4.8★', label: 'Crew satisfaction' },
+    ],
+    icon: UtensilsCrossed,
+  },
+];
 
 export default function AboutSection() {
   return (
