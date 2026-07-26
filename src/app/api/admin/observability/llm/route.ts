@@ -11,7 +11,9 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
     await requireAdmin();
   } catch (e) {
-    if (e instanceof Response) return e;
+    if (e instanceof Response) {
+      return new NextResponse(e.body, { status: e.status, headers: e.headers });
+    }
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

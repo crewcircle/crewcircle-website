@@ -49,14 +49,13 @@ export const FOOTER_LINKS = {
     { label: 'Support', href: '/#services' },
   ],
   apps: [
-    { label: 'Crew Roster', href: 'https://roster.crewcircle.com' },
-    { label: 'Smart GL', href: '#' }, // placeholder — no production URL yet
-    { label: 'Card Snap', href: '/cardsnap' },
-    { label: 'XeroAssist', href: 'https://xero-assist.crewcircle.com' },
+    { label: 'TaxFlowAI', href: 'https://taxflow.crewcircle.com.au' },
+    { label: 'LocalMate', href: 'https://localmate.crewcircle.com.au' },
+    { label: 'CrewRoster', href: 'https://roster.crewcircle.com.au' },
   ],
   legal: [
-    { label: 'Privacy Policy', href: '#' }, // placeholder — no legal pages yet
-    { label: 'Terms of Service', href: '#' }, // placeholder — no legal pages yet
-    { label: 'Documentation', href: '#' }, // placeholder — no legal pages yet
+    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Terms of Service', href: '/terms' },
+    { label: 'Documentation', href: '/documentation' },
   ],
 };

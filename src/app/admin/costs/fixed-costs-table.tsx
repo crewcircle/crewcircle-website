@@ -1,17 +1,11 @@
 "use client";
 
 import { DataTable } from "@crewcircle/admin-ui";
-
-interface FixedCostItem {
-  name: string;
-  category: string;
-  provider: string;
-  amount_cents: number;
-  frequency: string;
-}
+import type { DataTableColumn } from "@crewcircle/admin-ui";
+import type { FixedCostItem } from "@/lib/admin/costs";
 
 export function FixedCostsTable({ items }: { items: FixedCostItem[] }) {
-  const columns = [
+  const columns: DataTableColumn<FixedCostItem>[] = [
     { key: "name" as const, header: "Name", sortable: true },
     { key: "category" as const, header: "Category", sortable: true },
     { key: "provider" as const, header: "Provider", sortable: true },
@@ -30,7 +24,7 @@ export function FixedCostsTable({ items }: { items: FixedCostItem[] }) {
   ];
 
   return (
-    <DataTable
+    <DataTable<FixedCostItem>
       columns={columns}
       rows={items}
       emptyMessage="No fixed costs recorded. Add one via the API."
