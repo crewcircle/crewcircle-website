@@ -25,7 +25,9 @@ jobs:
         run: npm ci
 
       - name: TypeCheck
-        run: npm run typecheck --workspace=@crewcircle/knowledge
+        run: |
+          npm run typecheck --workspace=@crewcircle/knowledge
+          npm run typecheck --workspace=@crewcircle/docs-gen
 
   lint:
     name: Lint
@@ -45,7 +47,9 @@ jobs:
         run: npm ci
 
       - name: Lint
-        run: npm run lint --workspace=@crewcircle/knowledge
+        run: |
+          npm run lint --workspace=@crewcircle/knowledge
+          npm run lint --workspace=@crewcircle/docs-gen
 
   test:
     name: Test
@@ -65,7 +69,9 @@ jobs:
         run: npm ci
 
       - name: Run Tests
-        run: npm test --workspace=@crewcircle/knowledge
+        run: |
+          npm test --workspace=@crewcircle/knowledge
+          npm test --workspace=@crewcircle/docs-gen
 
   build:
     name: Build
@@ -86,14 +92,34 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build --workspace=@crewcircle/knowledge
+        run: |
+          npm run build --workspace=@crewcircle/knowledge
+          npm run build --workspace=@crewcircle/docs-gen
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: dist
-          path: packages/knowledge/dist
+          path: |
+            packages/knowledge/dist
+            packages/docs-gen/dist
           retention-days: 7
+
+  docs:
+    name: Generate Docs
+    needs: [build]
+    # Opt-in only: unset by default, so this job is skipped on every normal
+    # push/PR until a maintainer sets the OPENWIKI_DOCS_ENABLED repository
+    # (or org) variable to "true". Never runs on pull_request — an LLM pass
+    # on every contributor's PR would be wasteful and noisy.
+    if: github.event_name == 'push' && vars.OPENWIKI_DOCS_ENABLED == 'true'
+    permissions:
+      contents: write
+      pull-requests: write
+    uses: ./.github/workflows/docs-generate.yml
+    with:
+      mode: engineering
+    secrets: inherit
 
   changeset:
     name: Changeset

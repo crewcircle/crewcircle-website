@@ -5,6 +5,7 @@ on:
     branches: [main]
     tags:
       - 'knowledge-v*'
+      - 'docs-gen-v*'
   workflow_dispatch:
 
 permissions:
@@ -77,8 +78,8 @@ jobs:
             automated
           draft: false
 
-  publish:
-    name: Publish to npm
+  publish-knowledge:
+    name: Publish knowledge to npm
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/knowledge-v')
     steps:
@@ -101,11 +102,40 @@ jobs:
         run: npm run build --workspace=@crewcircle/knowledge
 
       - name: Verify package
-        run: |
-          cd packages/knowledge/dist
-          npm pack --dry-run
+        run: npm pack --dry-run --workspace=@crewcircle/knowledge
 
       - name: Publish to npm
-        run: npm publish packages/knowledge/dist --access public --provenance
+        run: npm publish --workspace=@crewcircle/knowledge --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-docs-gen:
+    name: Publish docs-gen to npm
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/docs-gen-v')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build docs-gen package
+        run: npm run build --workspace=@crewcircle/docs-gen
+
+      - name: Verify package
+        run: npm pack --dry-run --workspace=@crewcircle/docs-gen
+
+      - name: Publish to npm
+        run: npm publish --workspace=@crewcircle/docs-gen --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,0 +1,60 @@
+name: Generate Docs (reusable)
+
+# Generic OpenWiki-based documentation generation, shared across CrewCircle
+# repos via @crewcircle/docs-gen. Called by this repo's own ci.yml (gated,
+# default off) and by other CrewCircle repos as:
+#   uses: crewcircle/crewcircle-website/.github/workflows/docs-generate.yml@main
+#
+# Requires the calling workflow to pass `secrets: inherit` (or explicitly
+# forward OPENROUTER_API_KEY) so the shared org-wide OpenRouter key reaches
+# this job.
+
+on:
+  workflow_call:
+    inputs:
+      mode:
+        description: "Documentation audience: engineering (default) or client"
+        type: string
+        default: engineering
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Documentation audience: engineering (default) or client"
+        type: string
+        default: engineering
+
+jobs:
+  generate:
+    name: Generate Docs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run OpenWiki via @crewcircle/docs-gen
+        run: npx --yes @crewcircle/docs-gen generate --mode=${{ inputs.mode }}
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+
+      - name: Create documentation update pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          add-paths: |
+            openwiki
+            AGENTS.md
+            CLAUDE.md
+          branch: docs/update
+          commit-message: "docs: update generated documentation"
+          title: "docs: update generated documentation"
+          body: |
+            Automated documentation update via `@crewcircle/docs-gen` (OpenWiki, mode: ${{ inputs.mode }}).
