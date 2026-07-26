@@ -10,9 +10,6 @@ jobs:
   typecheck:
     name: TypeCheck
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: packages/knowledge
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,14 +25,11 @@ jobs:
         run: npm ci
 
       - name: TypeCheck
-        run: npm run typecheck
+        run: npm run typecheck --workspace=@crewcircle/knowledge
 
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: packages/knowledge
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -51,14 +45,11 @@ jobs:
         run: npm ci
 
       - name: Lint
-        run: npm run lint
+        run: npm run lint --workspace=@crewcircle/knowledge
 
   test:
     name: Test
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: packages/knowledge
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -74,14 +65,11 @@ jobs:
         run: npm ci
 
       - name: Run Tests
-        run: npm test
+        run: npm test --workspace=@crewcircle/knowledge
 
   build:
     name: Build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: packages/knowledge
     needs: [typecheck, lint, test]
     steps:
       - name: Checkout
@@ -98,7 +86,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
+        run: npm run build --workspace=@crewcircle/knowledge
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
