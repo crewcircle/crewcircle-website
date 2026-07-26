@@ -1,5 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { Mail, Phone } from 'lucide-react';
+import { Logo } from '@/components/Logo';
+import { Button } from '@/components/ui/button';
 import { FOOTER_LINKS } from '@/lib/config/content';
 import { CREWCIRCLE_SOCIAL } from '@/lib/config/social';
 const SOCIAL_ICONS = [

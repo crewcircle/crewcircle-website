@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { InternalMemory, getOrgMemory } from '../../src/internal';
 import { MockProvider } from '../../src/providers/mock/mock-provider';
 import { knowledge } from '../../src/providers';

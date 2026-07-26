@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import type { AppDef } from '@/lib/config/apps';
-import { Timer, BookOpen, Camera, Wrench, ArrowRight, Download, ExternalLink } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Timer, BookOpen, Camera, Wrench, ArrowRight, Download, ExternalLink, Users, Calculator } from 'lucide-react';
 
 const appIcons: Record<string, React.ReactNode> = {
   Timer: <Timer className="w-6 h-6" />,
