@@ -91,9 +91,15 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
+
+      # Trusted publishing (OIDC) requires npm CLI >=11.5.1; Node 22's bundled
+      # npm may be older, so pin explicitly rather than relying on whatever
+      # setup-node resolves.
+      - name: Update npm
+        run: npm install -g npm@^11.5.1
 
       - name: Install dependencies
         run: npm ci
@@ -104,6 +110,10 @@ jobs:
       - name: Verify package
         run: npm pack --dry-run --workspace=@crewcircle/knowledge
 
+      # NPM_TOKEN is a fallback only — once trusted publishing is configured
+      # for this package on npmjs.com, npm CLI detects the OIDC (id-token)
+      # environment automatically and uses that instead, with no code change
+      # needed here.
       - name: Publish to npm
         run: npm publish --workspace=@crewcircle/knowledge --access public --provenance
         env:
@@ -122,9 +132,15 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
+
+      # Trusted publishing (OIDC) requires npm CLI >=11.5.1; Node 22's bundled
+      # npm may be older, so pin explicitly rather than relying on whatever
+      # setup-node resolves.
+      - name: Update npm
+        run: npm install -g npm@^11.5.1
 
       - name: Install dependencies
         run: npm ci
@@ -135,6 +151,10 @@ jobs:
       - name: Verify package
         run: npm pack --dry-run --workspace=@crewcircle/docs-gen
 
+      # NPM_TOKEN is a fallback only — once trusted publishing is configured
+      # for this package on npmjs.com, npm CLI detects the OIDC (id-token)
+      # environment automatically and uses that instead, with no code change
+      # needed here.
       - name: Publish to npm
         run: npm publish --workspace=@crewcircle/docs-gen --access public --provenance
         env:
