@@ -6,7 +6,7 @@ export interface RegistryProject {
   name: string;
   description: string;
   price_cents: number;
-  status: "active" | "killed";
+  status: "active" | "coming_soon" | "killed";
   created_at: string;
   killed_at?: string;
 }
