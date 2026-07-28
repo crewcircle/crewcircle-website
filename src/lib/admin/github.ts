@@ -6,6 +6,15 @@
 const GITHUB_API = "https://api.github.com";
 const CREWCIRCLE_ORG = process.env.CC_GITHUB_USERNAME ?? "crewcircle";
 
+/**
+ * Registry project IDs that don't match their actual GitHub repo name.
+ * The registry ID stays stable (used as a key across routes, costs, etc.);
+ * this only redirects the GitHub API lookup.
+ */
+const REPO_NAME_OVERRIDES: Record<string, string> = {
+  taxflowai: "taxflow-ai",
+};
+
 export interface GitHubRepo {
   name: string;
   full_name: string;
@@ -46,7 +55,8 @@ export async function getRepo(repoName: string): Promise<GitHubEnriched | null> 
     return null;
   }
 
-  const url = `${GITHUB_API}/repos/${CREWCIRCLE_ORG}/${repoName}`;
+  const resolvedName = REPO_NAME_OVERRIDES[repoName] ?? repoName;
+  const url = `${GITHUB_API}/repos/${CREWCIRCLE_ORG}/${resolvedName}`;
 
   const res = await fetch(url, {
     headers: {

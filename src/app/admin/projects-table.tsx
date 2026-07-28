@@ -25,7 +25,7 @@ export function ProjectsTable({ projects }: { projects: ProjectRow[] }) {
       header: "Status",
       sortable: true,
       render: (item: ProjectRow) => (
-        <StatusBadge status={item.status as "active" | "killed"} />
+        <StatusBadge status={item.status as "active" | "coming_soon" | "killed"} />
       ),
     },
     {

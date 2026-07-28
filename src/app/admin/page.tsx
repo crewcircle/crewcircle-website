@@ -19,6 +19,8 @@ export default async function AdminDashboardPage() {
   );
 
   const activeCount = projects.filter((p) => p.status === "active").length;
+  const comingSoonCount = projects.filter((p) => p.status === "coming_soon").length;
+  const killedCount = projects.filter((p) => p.status === "killed").length;
   const totalMmr = projects
     .filter((p) => p.status === "active")
     .reduce((sum, p) => sum + p.price_cents, 0);
@@ -42,7 +44,7 @@ export default async function AdminDashboardPage() {
         <StatCard
           title="Active Projects"
           value={activeCount}
-          description={`${projects.length - activeCount} killed`}
+          description={`${comingSoonCount} coming soon, ${killedCount} killed`}
           icon={TrendingUp}
         />
         <StatCard

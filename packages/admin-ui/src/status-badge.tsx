@@ -7,6 +7,7 @@ const badgeVariants = cva(
     variants: {
       status: {
         active: "bg-green-100 text-green-800",
+        coming_soon: "bg-amber-100 text-amber-800",
         killed: "bg-red-100 text-red-800",
       },
     },
@@ -20,8 +21,14 @@ interface StatusBadgeProps extends VariantProps<typeof badgeVariants> {
   className?: string;
 }
 
+const STATUS_LABELS: Record<string, string> = {
+  active: "Active",
+  coming_soon: "Coming Soon",
+  killed: "Killed",
+};
+
 export function StatusBadge({ status, className }: StatusBadgeProps) {
-  const label = status === "active" ? "Active" : "Killed";
+  const label = STATUS_LABELS[status ?? "active"] ?? "Killed";
   return (
     <span className={clsx(badgeVariants({ status }), className)}>
       {label}
