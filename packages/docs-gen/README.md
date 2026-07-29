@@ -37,19 +37,29 @@ CrewCircle GitHub org secret).
 
 ## Model choice
 
-Defaults to `mistralai/mistral-nemo` via OpenRouter. The literal cheapest
-tool-calling-capable model on OpenRouter's catalog at the time this was
-written was `inclusionai/ling-2.6-flash`, but a real CI run hit a persistent
-`429` from its backing provider (Novita's shared, non-BYOK pool — "temporarily
-rate-limited upstream", twice in a row, not a one-off) — see git history on
-this file for the failed run. Mistral is a first-party lab on OpenRouter
-rather than a shared-pool aggregation, and costs negligibly more
-($0.019/$0.03 per M tokens vs $0.01/$0.03), 128k context, tool-calling
-supported. Free-tier (`:free`) models were intentionally not chosen as the
-default either: they share a global rate-limited pool (as low as 20 requests/day) too fragile for a CI job
-that needs many tool-call round-trips per run. Override per-repo by setting
-`OPENWIKI_MODEL_ID` in the calling workflow's environment before invoking this
-CLI — it wins over the default.
+Defaults to `qwen/qwen3-30b-a3b-instruct-2507` via OpenRouter. Two cheaper
+options were tried and ruled out by real CI runs, not just price research:
+
+1. `inclusionai/ling-2.6-flash` (literal cheapest tool-calling model on
+   OpenRouter at the time) — hit a persistent `429` from its backing
+   provider (Novita's shared, non-BYOK pool), twice in a row, not transient.
+2. `mistralai/mistral-nemo` — no rate-limit issue, but too weak to follow
+   OpenWiki's own init-vs-update reasoning: it looked at recent git log,
+   saw unrelated commits, and concluded "wiki already current" without ever
+   generating anything, despite `openwiki/` not existing yet in the repo.
+
+`qwen3-30b-a3b-instruct-2507` (30B MoE, ~3.3B active params, 262k context,
+tool-calling supported) correctly did a full first-pass generation end to
+end — verified via a real run producing accurate, substantive pages (see
+PR history on this repo). Costs more than the first two
+($0.048/$0.193 per M tokens) but is still cheap in absolute terms, and
+correctness matters more than shaving fractions of a cent on a job that
+runs occasionally. Free-tier (`:free`) models were intentionally not
+chosen as the default either: they share a global rate-limited pool (as
+low as 20 requests/day) too fragile for a CI job that needs many
+tool-call round-trips per run. Override per-repo by setting
+`OPENWIKI_MODEL_ID` in the calling workflow's environment before invoking
+this CLI — it wins over the default.
 
 ## Modes
 
