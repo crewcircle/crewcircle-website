@@ -37,12 +37,16 @@ CrewCircle GitHub org secret).
 
 ## Model choice
 
-Defaults to `inclusionai/ling-2.6-flash` via OpenRouter — the cheapest model
-on OpenRouter's live catalog, at the time this was written, that both supports
-tool-calling (required — OpenWiki is an agentic CLI that reads files via tool
-calls) and has enough context (262k tokens) to read real source files. Free-tier
-(`:free`) models were intentionally not chosen as the default: they share a
-global rate-limited pool (as low as 20 requests/day) too fragile for a CI job
+Defaults to `mistralai/mistral-nemo` via OpenRouter. The literal cheapest
+tool-calling-capable model on OpenRouter's catalog at the time this was
+written was `inclusionai/ling-2.6-flash`, but a real CI run hit a persistent
+`429` from its backing provider (Novita's shared, non-BYOK pool — "temporarily
+rate-limited upstream", twice in a row, not a one-off) — see git history on
+this file for the failed run. Mistral is a first-party lab on OpenRouter
+rather than a shared-pool aggregation, and costs negligibly more
+($0.019/$0.03 per M tokens vs $0.01/$0.03), 128k context, tool-calling
+supported. Free-tier (`:free`) models were intentionally not chosen as the
+default either: they share a global rate-limited pool (as low as 20 requests/day) too fragile for a CI job
 that needs many tool-call round-trips per run. Override per-repo by setting
 `OPENWIKI_MODEL_ID` in the calling workflow's environment before invoking this
 CLI — it wins over the default.
