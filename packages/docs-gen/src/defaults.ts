@@ -5,7 +5,7 @@
  */
 export const DEFAULT_ENV: Record<string, string> = {
   OPENWIKI_PROVIDER: "openrouter",
-  OPENWIKI_MODEL_ID: "mistralai/mistral-nemo",
+  OPENWIKI_MODEL_ID: "qwen/qwen3-30b-a3b-instruct-2507",
   OPENWIKI_TELEMETRY_DISABLED: "1",
 };
 
