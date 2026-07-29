@@ -8,6 +8,13 @@ name: Generate Docs (reusable)
 # Requires the calling workflow to pass `secrets: inherit` (or explicitly
 # forward OPENROUTER_API_KEY) so the shared org-wide OpenRouter key reaches
 # this job.
+#
+# @crewcircle/docs-gen is NOT published to npm (blocked on an npm org/token
+# permissions issue — see packages/docs-gen/README.md). Until that's sorted,
+# this checks out crewcircle-website directly and builds the package from
+# source rather than `npx`-installing it from the registry. OpenWiki itself
+# is unaffected — it's a normal published third-party package, still
+# installed via `npx` as usual.
 
 on:
   workflow_call:
@@ -31,24 +38,42 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - name: Checkout
+      - name: Checkout target repo
         uses: actions/checkout@v4
         with:
+          path: target
           persist-credentials: true
+
+      - name: Checkout docs-gen source (crewcircle-website)
+        uses: actions/checkout@v4
+        with:
+          repository: crewcircle/crewcircle-website
+          path: docs-gen-src
+          sparse-checkout: |
+            packages/docs-gen
+          sparse-checkout-cone-mode: false
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
 
-      - name: Run OpenWiki via @crewcircle/docs-gen
-        run: npx --yes @crewcircle/docs-gen generate --mode=${{ inputs.mode }}
+      - name: Build docs-gen
+        working-directory: docs-gen-src/packages/docs-gen
+        run: |
+          npm install
+          npm run build
+
+      - name: Run OpenWiki via docs-gen
+        working-directory: target
+        run: node ../docs-gen-src/packages/docs-gen/dist/cli.js generate --mode=${{ inputs.mode }}
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
 
       - name: Create documentation update pull request
         uses: peter-evans/create-pull-request@v7
         with:
+          path: target
           add-paths: |
             openwiki
             AGENTS.md
@@ -57,4 +82,4 @@ jobs:
           commit-message: "docs: update generated documentation"
           title: "docs: update generated documentation"
           body: |
-            Automated documentation update via `@crewcircle/docs-gen` (OpenWiki, mode: ${{ inputs.mode }}).
+            Automated documentation update via `@crewcircle/docs-gen` (OpenWiki, mode: ${{ inputs.mode }}), built from source (git-based distribution — see workflow comments).
