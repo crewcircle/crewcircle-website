@@ -6,8 +6,23 @@ every repo runs the same CLI instead of a copy-pasted CI script.
 
 ## Usage
 
+**Not published to npm** — `@crewcircle`'s npm organization has an
+unresolved token/permissions issue (org exists, publish still 404s; see
+git history on this file / `.github/workflows/release.yml` for the
+investigation). Don't `npx @crewcircle/docs-gen` yet, it will fail to
+resolve. CrewCircle repos consume this package by building it from source
+instead — see `.github/workflows/docs-generate.yml`, which checks out
+`crewcircle-website`, runs `npm install && npm run build` inside
+`packages/docs-gen`, and invokes `dist/cli.js` directly with `node`. Once
+npm publishing is fixed, this can switch back to a plain `npx` install with
+no change to the CLI itself.
+
+For manual/local use against a real target repo:
+
 ```sh
-npx @crewcircle/docs-gen generate --mode=engineering
+cd packages/docs-gen && npm install && npm run build
+cd /path/to/target-repo
+node /path/to/crewcircle-website/packages/docs-gen/dist/cli.js generate --mode=engineering
 ```
 
 - Writes `openwiki/INSTRUCTIONS.md` from the matching template in
