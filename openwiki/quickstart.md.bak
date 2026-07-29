@@ -1,0 +1,103 @@
+<okf_front_matter>
+---
+type: Playbook
+title: Quickstart
+description: Start here for new contributors and agents. Learn core concepts, architecture, and where to begin building.
+resource: /openwiki/quickstart.md
+tags: [onboarding, quickstart, getting-started]
+---
+</okf_front_matter>
+
+# CrewCircle OpenWiki Quickstart
+
+Welcome to the **CrewCircle OpenWiki** — the single source of truth for engineering and product architecture in this repository.
+
+This documentation is automatically generated from the `AGENTS.md` and `CLAUDE.md` files. Do **not** hand-edit generated pages; instead, update source files and let OpenWiki regenerate the knowledge base.
+
+## 🏗️ Core Architecture
+
+The platform is built with a modular monorepo using **Next.js 16 (Turbopack)** and **TypeScript**. The main admin dashboard lives under `src/app/admin/`.
+
+### 🧱 Administrative Dashboard
+
+| Layer | Location | Purpose |
+|-------|----------|---------|
+| UI Components | `packages/admin-ui/` | Shared React components for data tables, charts, status badges, and app shell |
+| Pages | `src/app/admin/` | Route group at `/admin` for dashboards: projects, costs, observability |
+| API Routes | `src/app/api/admin/` | REST endpoints for project management, cost aggregation, and provisioning |
+| Libraries | `src/lib/admin/` | Auth, GitHub enrichment, cost logic, registry interaction, provider modules |
+| Database | `packages/database/migrations/` | Supabase schema migrations (003: `llm_usage_logs`, 004: `provisioning_jobs`, 005: `fixed_costs`) |
+| Registry | `packages/infra/registry.json` | Gitignored project registry managed by Python-based registry tool |
+
+### 🚨 Critical Design Decisions
+
+- **Admin apps live in a route group**, not a separate app. Accessible at `crewcircle.com.au/admin`.
+- **Auth**: Uses `@crewcircle/auth` (Supabase GoTrue). `requireAdmin()` in `src/lib/admin/auth.ts` gates access. Enable `ADMIN_AUTH_BYPASS=true` for local dev.
+- **Provisioning runs on DO droplets**, not Vercel — because `spawn()` is background and Vercel may reclaim the runtime after HTTP response.
+- **Admin DB tables enforce RLS with zero policies** — only `service_role` can access via API routes. All others are blocked.
+- **Server components cannot pass functions to client components**. For DataTables, use thin `"use client"` wrapper components (see `projects-table.tsx` and `fixed-costs-table.tsx`).
+- **`createServerClient()` is async** — always `await` it — and uses `client.auth.getUser()`, not `client.getUser()`.
+- **`requireAdmin()` throws `Response` objects**, not `Error`. Catch blocks must check `e instanceof Response`.
+- **Development cost mode** uses `!NEXT_PUBLIC_SUPABASE_URL`, not `ADMIN_AUTH_BYPASS`. This ensures cost data is real when Supabase is configured.
+
+## 🛠️ Development Setup
+
+```bash
+npm run dev  # starts Next.js 16 with Turbopack on port 3000
+```
+
+### Required Environment Variables
+
+Create `.env.local` (gitignored) with:
+
+```
+CREWCIRCLE_ORG_SLUG=crewcircle
+CREWCIRCLE_ORG_NAME=CrewCircle
+ADMIN_AUTH_BYPASS=true              # skip auth for local dev
+NEXT_PUBLIC_SUPABASE_URL=<url>
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<key>
+SUPABASE_URL=<url>
+SUPABASE_SERVICE_ROLE_KEY=<key>
+GITHUB_TOKEN=<token>               # for repo enrichment (stars, forks)
+```
+
+### Test Endpoints
+
+- `curl localhost:3000/admin` — Project dashboard
+- `curl localhost:3000/admin/costs` — Cost dashboard
+- `curl localhost:3000/admin/observability` — Observability hub
+- `curl localhost:3000/api/admin/projects` — Projects JSON
+- `curl localhost:3000/api/admin/costs` — Costs JSON
+- `curl localhost:3000/api/admin/health` — Health check
+
+## ⚠️ Common Gotchas
+
+- **Server → Client component pass-through**: If you see `Error: Functions cannot be passed directly to Client Components`, extract the DataTable render into a thin `"use client"` wrapper.
+- **`createServerClient()` is async**: Always `await` it — the Supabase client uses `client.auth.getUser()` not `client.getUser()`.
+- **`requireAdmin()` throws `Response`**: Handle `e instanceof Response` in catch blocks.
+- **Registry is gitignored**: Populate `packages/infra/registry.json` locally for dev project data (format: `"projects": [{id, name, description, price_cents, status, created_at}]`).
+- **Cost page can block**: `getCostDashboard()` queries Supabase — if unreachable, it may block for 7+ seconds. In dev, remove `NEXT_PUBLIC_SUPABASE_URL` to return empty data quickly.
+
+## 🚀 Where to Build Next
+
+- **Real GitHub enrichment**: Wire a real `GITHUB_TOKEN` for stars and forks on project cards and detail pages.
+- **Production auth**: Remove `ADMIN_AUTH_BYPASS`, uncomment the middleware cookie check, configure real Supabase GoTrue credentials.
+- **DO droplet deployment**: Move provision/deprovision routes to run on a DO droplet (per C2 architectural decision).
+- **Production migrations**: Apply migration files (003, 004, 005) to the real Supabase instance.
+
+## 📚 Next Steps
+
+- Visit `/openwiki/architecture/overview.md` for deeper system architecture.
+- See `/openwiki/operations/provisioning.md` for instance provisioning workflows.
+- Check `/openwiki/integrations/github.md` for GitHub integration details.
+- Explore `/openwiki/testing/development.md` for testing best practices.
+
+> ✅ **Remember**: This documentation is auto-generated. Update source files like `AGENTS.md` to improve the knowledge base.
+
+## ⚙️ Future Extensions (Backlog)
+
+- Add mermaid diagrams for data flow and API call sequences.
+- Generate `source-map.md` to map layers to source files.
+- Add `architecture/deployment.md` for DO droplet and Vercel routing.
+- Add `integrations/sentry.md` and `integrations/uptime.md` for observability providers.
+- Add `data-models/database-schema.md` for Supabase table definitions and RLS policies.
