@@ -37,8 +37,9 @@ CrewCircle GitHub org secret).
 
 ## Model choice
 
-Defaults to `qwen/qwen3-30b-a3b-instruct-2507` via OpenRouter. Two cheaper
-options were tried and ruled out by real CI runs, not just price research:
+Defaults to `openai/gpt-oss-120b` via OpenRouter. Three cheaper options were
+tried and ruled out by real CI runs, not just price research — cheapest
+isn't the priority anymore, a run that actually produces output is:
 
 1. `inclusionai/ling-2.6-flash` (literal cheapest tool-calling model on
    OpenRouter at the time) — hit a persistent `429` from its backing
@@ -47,19 +48,28 @@ options were tried and ruled out by real CI runs, not just price research:
    OpenWiki's own init-vs-update reasoning: it looked at recent git log,
    saw unrelated commits, and concluded "wiki already current" without ever
    generating anything, despite `openwiki/` not existing yet in the repo.
+3. `qwen/qwen3-30b-a3b-instruct-2507` — inconsistent across runs. One run
+   did correctly produce a full first-pass generation (accurate, substantive
+   `quickstart.md`, verified by hand against the actual codebase). Two
+   subsequent runs on the same repo state failed differently each time: one
+   reasoned itself into a no-op ("no edits are required... outside the scope
+   of this update run", despite recognizing the wiki was empty and needed
+   `--init`-equivalent behavior); the other spent 22 minutes and emitted a
+   malformed tool call (`{"name": "read_file", ...}</tool_call>` with no
+   matching open tag) instead of properly invoking it, and never recovered.
+   Both `ling-2.6-flash` and `qwen3-30b` are Chinese-lab open-weight models;
+   the tool-calling-format compliance risk they share on OpenRouter's varied
+   backing providers seems to be the actual pattern here, not one bad model.
 
-`qwen3-30b-a3b-instruct-2507` (30B MoE, ~3.3B active params, 262k context,
-tool-calling supported) correctly did a full first-pass generation end to
-end — verified via a real run producing accurate, substantive pages (see
-PR history on this repo). Costs more than the first two
-($0.048/$0.193 per M tokens) but is still cheap in absolute terms, and
-correctness matters more than shaving fractions of a cent on a job that
-runs occasionally. Free-tier (`:free`) models were intentionally not
-chosen as the default either: they share a global rate-limited pool (as
-low as 20 requests/day) too fragile for a CI job that needs many
-tool-call round-trips per run. Override per-repo by setting
-`OPENWIKI_MODEL_ID` in the calling workflow's environment before invoking
-this CLI — it wins over the default.
+`gpt-oss-120b` is OpenAI's own open-weight line, built against the
+function-calling format most agent frameworks (LangChain/OpenWiki included)
+are most rigorously tested against. Still cheap in absolute terms
+($0.037/$0.17 per M tokens), 131k context, tool-calling supported. Free-tier
+(`:free`) models were intentionally not chosen as the default either: they
+share a global rate-limited pool (as low as 20 requests/day) too fragile for
+a CI job that needs many tool-call round-trips per run. Override per-repo by
+setting `OPENWIKI_MODEL_ID` in the calling workflow's environment before
+invoking this CLI — it wins over the default.
 
 ## Modes
 
