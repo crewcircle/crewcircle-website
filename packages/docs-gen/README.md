@@ -37,8 +37,8 @@ CrewCircle GitHub org secret).
 
 ## Model choice
 
-Defaults to `openai/gpt-oss-120b` via OpenRouter. Three cheaper options were
-tried and ruled out by real CI runs, not just price research — cheapest
+Defaults to `google/gemini-2.5-flash` via OpenRouter. Four cheaper options
+were tried and ruled out by real CI runs, not just price research — cheapest
 isn't the priority anymore, a run that actually produces output is:
 
 1. `inclusionai/ling-2.6-flash` (literal cheapest tool-calling model on
@@ -60,14 +60,24 @@ isn't the priority anymore, a run that actually produces output is:
    Both `ling-2.6-flash` and `qwen3-30b` are Chinese-lab open-weight models;
    the tool-calling-format compliance risk they share on OpenRouter's varied
    backing providers seems to be the actual pattern here, not one bad model.
+4. `openai/gpt-oss-120b` — OpenWiki's own startup log flagged it: `Warning:
+   model "openai/gpt-oss-120b" is not a known OpenRouter model (it belongs
+   to NVIDIA NIM). The request may fail.` It's a real, live model on
+   OpenRouter's own catalog, but OpenWiki maintains its own internal preset
+   list per provider and doesn't recognize this specific ID there — the run
+   degraded silently (finished in 36s, wrote nothing) rather than erroring
+   loudly.
 
-`gpt-oss-120b` is OpenAI's own open-weight line, built against the
-function-calling format most agent frameworks (LangChain/OpenWiki included)
-are most rigorously tested against. Still cheap in absolute terms
-($0.037/$0.17 per M tokens), 131k context, tool-calling supported. Free-tier
-(`:free`) models were intentionally not chosen as the default either: they
-share a global rate-limited pool (as low as 20 requests/day) too fragile for
-a CI job that needs many tool-call round-trips per run. Override per-repo by
+`gemini-2.5-flash` was chosen specifically to avoid the failure classes
+above: unambiguous model naming (no cross-provider ID collision like
+`gpt-oss-120b`'s), a first-party lab (not a shared/aggregated pool like
+`ling-2.6-flash`'s), and mature, widely-adopted tool-calling support. Costs
+more than the previous options ($0.30/$2.50 per M tokens vs $0.01–0.19), but
+for an occasional, opt-in job this is still a trivial absolute cost — a full
+repo scan runs a few hundred K tokens, well under $1. Free-tier (`:free`)
+models were intentionally not chosen as the default either: they share a
+global rate-limited pool (as low as 20 requests/day) too fragile for a CI
+job that needs many tool-call round-trips per run. Override per-repo by
 setting `OPENWIKI_MODEL_ID` in the calling workflow's environment before
 invoking this CLI — it wins over the default.
 

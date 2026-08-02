@@ -5,7 +5,7 @@
  */
 export const DEFAULT_ENV: Record<string, string> = {
   OPENWIKI_PROVIDER: "openrouter",
-  OPENWIKI_MODEL_ID: "openai/gpt-oss-120b",
+  OPENWIKI_MODEL_ID: "google/gemini-2.5-flash",
   OPENWIKI_TELEMETRY_DISABLED: "1",
 };
 
